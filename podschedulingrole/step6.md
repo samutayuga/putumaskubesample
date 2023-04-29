@@ -23,13 +23,10 @@ Extact the events,
 
 ```text
 Pod/large-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/large-ootcloud-tolerant to controlplane
-Pod/large-ootcloud-tolerant     kubelet Pulled  Container image "nginx:alpine" already present on machine
-Pod/large-ootcloud-tolerant     kubelet Created Created container large-ootcloud-tolerant
+...
 Pod/large-ootcloud-tolerant     kubelet Started Started container large-ootcloud-tolerant
 Pod/other-non-tolerant  default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant to controlplane
-Pod/small-ootcloud-tolerant     kubelet Pulling Pulling image "nginx:alpine"
-Pod/small-ootcloud-tolerant     kubelet Pulled  Successfully pulled image "nginx:alpine" in 3.366522845s (3.366528188s including waiting)
+...
 Pod/small-ootcloud-tolerant     kubelet Created Created container small-ootcloud-tolerant
 Pod/small-ootcloud-tolerant     kubelet Started Started container small-ootcloud-tolerant
 Pod/small-ootcloud-tolerant     kubelet Killing Stopping container small-ootcloud-tolerant
