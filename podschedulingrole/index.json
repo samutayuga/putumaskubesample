@@ -1,0 +1,29 @@
+
+ 
+
+{
+    "title": "Kubernetes Pod scheduling",
+    "description": "How the tolerations, node affinity affect the pod scheduling",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Label two nodes with size=SMALL and size=MEDIUM  respectively",
+          "text": "step1.md"
+        },
+        {
+            "title": "Create the pod with node selector set with label size=SMALL",
+            "text": "step2.md"
+          }
+        
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
