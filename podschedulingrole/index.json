@@ -14,8 +14,12 @@
           "text": "step1.md"
         },
         {
-            "title": "Create a pod with the corresponding toleration",
+            "title": "Create a non tolereant pod",
             "text": "step2.md"
+         },
+         {
+            "title": "Create a pod with the corresponding toleration",
+            "text": "step3.md"
          }
         
       ],
