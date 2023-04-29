@@ -8,11 +8,11 @@ At the same time, no apps from other team should be deployed into `oot-cloud` te
 
 It implies few things,
 
-* the node should have a taint that prevent other pods than those from oot-cloud to be scheduled.
+* the node should have a way to prevent other pods than those from oot-cloud to be scheduled. This can be achieved through taint (on the node) and toleration (on the pod)
 
-* any pod from oot-team should be made tolerant to the taint of the node
+* no pod should go to the non tainted node. This can't be achieved by taint alone. It can be achieved by `nodeSelector` (on pod) and `label` (on node)
 
-* no pod should be assigned to non tainted node.
+* supposed in the future, the team has 3 nodes. 2 nodes for normal app (low to medium computing capacity), 1 is for ETL job with high computing capacity. With this requirement in place, a pod can only go to either node 1 or node 2. The rest of the pod can go to node 3 only. This can be achieved by `nodeAffinity` with `nodeSelectorTerms`. Where its `matchExpressions` can accept the logical expression.
 
 In this exercise we will walk through, the step to craft the pod manifest in different scenarios.
 
