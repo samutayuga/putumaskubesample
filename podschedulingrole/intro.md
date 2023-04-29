@@ -4,7 +4,7 @@ The `oot-cloud` team owns magellan namespace. Due to recent expansion of the tea
 
 The organization cannot afford to have `oot-cloud` team to wrongly deploy their apps into other node that is not supposed to be.
 
-At the same time, no apps from other team should be deployed into `oot-cloud` team's designated cluster. In addition to this, the number of nodes that the team belongs to, may be extended to very near future, up to two or three. The same rules will apply to the new nodes. For the moment, the team has only one node in the cluster, which is still sufficient with current traffic.
+At the same time, no apps from other team should be deployed into `oot-cloud` team's designated node. In addition to this, the number of nodes that the team belongs to, may be extended to very near future, up to two or three. The same rules will apply to the new nodes. For the moment, the team has only one node in the cluster, which is still sufficient with current traffic.
 
 It implies few things,
 
