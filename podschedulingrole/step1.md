@@ -14,7 +14,7 @@ The format is, `key=value:effect`
 kubectl taint node controlplane PodSize=SMALL:NoSchedule
 ```
 
-Verify node and label are applied properly
+Verify if taint applied on node properly.
 
 ```shell
 kubectl describe node controlplane |grep "Taints:"
