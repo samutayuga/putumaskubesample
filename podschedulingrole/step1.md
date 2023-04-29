@@ -1,4 +1,4 @@
-# Lets label the nodes
+# Lets label and taints the nodes
 
 Inpect what nodes are there
 
@@ -6,6 +6,10 @@ Inpect what nodes are there
 kubectl get nodes
 ```
 
+```shell
+kubectl label node controlplan size=SMALL
 ```
-kubectl labels node node1 size=SMALL
+
+```shell
+kubectl taints node PodSize=SMALL:NoSchedule
 ```
