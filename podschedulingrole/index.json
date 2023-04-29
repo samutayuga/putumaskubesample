@@ -10,11 +10,11 @@
       },
       "steps": [
         {
-          "title": "Label two nodes with size=SMALL and size=MEDIUM  respectively",
+          "title": "Apply label and taint on node",
           "text": "step1.md"
         },
         {
-            "title": "Create the pod with node selector set with label size=SMALL",
+            "title": "Create a pod with the corresponding toleration",
             "text": "step2.md"
           }
         
