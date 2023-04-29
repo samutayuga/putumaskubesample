@@ -17,14 +17,13 @@ Save the manifest into a file `/tmp/tolerant.yaml`
 
 Observe the events inside the namespace `magellan`, try to extract the event object and output it into to-template
 
-`k get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .reportingInstance }}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\n"}}{{end}}'`
+`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\t"}}{{.message}}{{"\n"}}{{end}}'`
 
 Example output,
 
 ```text
-Pod/other-non-tolerant  default-scheduler-controlplane  <no value>      FailedScheduling
-Pod/small-ootcloud-tolerant     default-scheduler-controlplane  <no value>      Scheduled
-Pod/small-ootcloud-tolerant             kubelet Pulled
-Pod/small-ootcloud-tolerant             kubelet Created
-Pod/small-ootcloud-tolerant             kubelet Started
+Pod/other-non-tolerant  default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant to controlplane
+...
+Pod/small-ootcloud-tolerant     kubelet Started Started container small-ootcloud-tolerant
 ```

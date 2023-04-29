@@ -31,16 +31,17 @@ kubectl run small-ootcloud-tolerant --image=nginx:alpine \
 
 Inspect the warning entry, try to extract the event object and output it into to-template
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .reportingInstance }}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\n"}}{{end}}'`
+`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\t"}}{{.message}}{{"\n"}}{{end}}'`
 
 Example output,
 
 ```text
-Pod/oot-cloud-small-tolerant            default-scheduler       FailedScheduling
-Pod/oot-cloud-small-tolerant            default-scheduler       FailedScheduling
-Pod/small-ootcloud-tolerant             default-scheduler       Scheduled
-Pod/small-ootcloud-tolerant             kubelet Pulling
-Pod/small-ootcloud-tolerant             kubelet Pulled
-Pod/small-ootcloud-tolerant             kubelet Created
-Pod/small-ootcloud-tolerant             kubelet Started
+Pod/other-non-tolerant  default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant to controlplane
+...
+Pod/small-ootcloud-tolerant     kubelet Started Started container small-ootcloud-tolerant
+Pod/small-ootcloud-tolerant     kubelet Killing Stopping container small-ootcloud-tolerant
+Pod/small-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant to controlplane
+...
+Pod/small-ootcloud-tolerant     kubelet Started Started container small-ootcloud-tolerant
 ```
