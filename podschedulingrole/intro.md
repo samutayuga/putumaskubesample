@@ -1,6 +1,6 @@
 # Experiment the pod life cycle with the effect of node rule
 
-The `oot-cloud` team owns magellan namespace. Due to recent expansion of the team, the nodes occupation will need to regulate, as well. For instance, the team only is only allowed to deploy their workload into its designated node.
+The `oot-cloud` team owns magellan namespace. Due to recent expansion of the team, the nodes occupation will need to regulate, as well. For instance, the team is only allowed to deploy their workload into its designated node.
 
 The organization cannot afford to have `oot-cloud` team to wrongly deploy their apps into other node that is not supposed to be.
 
