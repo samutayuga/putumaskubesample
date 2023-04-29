@@ -18,8 +18,20 @@
             "text": "step2.md"
          },
          {
-            "title": "Create a pod with the corresponding toleration",
+            "title": "Create a pod with the corresponding toleration and podSize=SMALL",
             "text": "step3.md"
+         },
+         {
+            "title": "Change the node label to podSize=MEDIUM, redeploy the same pod",
+            "text": "step4.md"
+         },
+         {
+            "title": "Change the node label to podSize=LARGE, recreate the pod with the same rule",
+            "text": "step5.md"
+         },
+         {
+            "title": "Create a pod with the corresponding toleration and podSize=LARGE",
+            "text": "step6.md"
          }
         
       ],

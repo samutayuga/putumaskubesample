@@ -1,21 +1,20 @@
-# Lets taints the node
+# Prerequistes
 
 Inpect what nodes are there
 
-```shell
-kubectl get nodes
-```
+`kubectl get nodes`
 
-The following is to taint the node.
+The node need to be tainted and labelled as well.
+The taint determines on the pod which is owned by ootcloud will be accepted.
+In taint notion, it is written as below,
 
-The format is, `key=value:effect`
+`kubectl taint node controlplane owner=ootcloud:NoSchedule`
 
-```shell
-kubectl taint node controlplane PodSize=SMALL:NoSchedule
-```
+Whereas the label determines which node the pod can go. The pod which is its nodeSelector or noteAffinity match the node's label will go to that node.
+So label is about the pod wants to be in which node. Lets this node is for the pod with low to medium computing power.
 
-Verify if taint applied on node properly.
+`kubectl label node controlplane podSize=SMALL`
 
-```shell
-kubectl describe node controlplane |grep "Taints:"
-```
+Verify if taint and label applied on node properly,
+
+`kubectl describe node controlplane`
