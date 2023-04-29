@@ -25,7 +25,6 @@ Make sure its values are, `pod`, `no-toleran` and `*-scheduler*` respectivelly.
 >Try to extract the event object and output it into to-template
 `k get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .reportingInstance }}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\n"}}{{end}}'`
 
-
 Example output,
 
 ```text
