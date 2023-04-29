@@ -17,9 +17,22 @@ kubectl run no-tolerant --image=nginx:alpine --overrides '{"spec": {"nodeSelecto
 
 Once it is applied, observe if pod is stuck in `Pending`.
 
-Describe pod to gather more information.
+Observe the events inside the namespace `magellan`
 
 ```shell
-kubectl describe pod -n magellan no-tolerant
+kubectl get events -n magellan -o wide
 ```
 
+Inspect the warning entry. Pay attention on, `OBJECT`, `SUBOBJECT`, `SOURCE` columns.
+Make sure its values are, `pod`, `no-toleran` and `*-scheduler*` respectivelly.
+
+>Try to extract the event object and output it into to-template
+`k get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .reportingInstance }}{{"\t"}}{{ .reason}}{{"\n"}}{{end}}'`
+
+
+Example output,
+
+```text
+Pod/no-tolerant default-scheduler-controlplane  FailedScheduling
+Pod/no-tolerant default-scheduler-controlplane  FailedScheduling
+```
