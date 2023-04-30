@@ -1,19 +1,19 @@
-# Create the tolerant pod
+# Create a deployment with tolerant pod
 
-Leave the `other-non-torelant` pod in `Pending`.
+Leave the `other-non-torelant` deployment in `Pending`.
 
-Create another pod in `magellan` namespace with `nginx:alpine` image and make it tolerant to `controlplane` node which its taint  is `owner=ootcloud:NoSchedule`. This represents the pod from ootcloud team.
-Assuming it is a kind of standard apps with low computing capacity requirement.
+Create another deployment in `magellan` namespace with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=ootcloud:NoSchedule`. This represents the deployment from ootcloud team. In real world scenario, this could be a kind of standard apps with low computing capacity requirement.
+
+Initiate the manifest creation with imperative approach,
+Save the manifest into a file `/tmp/small-ootcloud-tolerant.yaml`
 
 ```shell
-kubectl run small-ootcloud-tolerant --image=nginx:alpine \
+kubectl create deployment small-ootcloud-tolerant --image=nginx:alpine \
 --overrides '{ "spec": { "tolerations": [ { "key": "owner","operator": "Equal", "value": "ootcloud", "effect": "NoSchedule" } ], "affinity": {"nodeAffinity": {"requiredDuringSchedulingIgnoredDuringExecution" : {"nodeSelectorTerms": [{"matchExpressions": [ {"key": "podSize", "operator": "In", "values": ["SMALL", "MEDIUM" ] } ] }] } }}  } }' \
 -n magellan \
 --dry-run=client \
 -o yaml > /tmp/small-ootcloud-tolerant.yaml
 ```
-
-Save the manifest into a file `/tmp/tolerant.yaml`
 
 Observe the events inside the namespace `magellan`, try to extract the event object and output it into to-template
 
