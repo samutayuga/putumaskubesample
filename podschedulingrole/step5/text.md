@@ -71,6 +71,8 @@ Waiting for deployment "small-ootcloud-tolerant" rollout to finish: 0 of 1 updat
 
 Now the deployment and pods are in pending
 
+`kubectl get deployment,pod -n magellan`{{exec}}
+
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/other-non-tolerant        0/1     1            0           42m
