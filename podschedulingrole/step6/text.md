@@ -122,6 +122,8 @@ Pod/small-ootcloud-tolerant     default-scheduler       FailedScheduling        
 
 Final state of the `large-ootcloud-tolerant` is `Started`
 
+`kubectl get deployment,pod -n magellan`{{exec}}
+
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/large-ootcloud-tolerant   1/1     1            1           8s
