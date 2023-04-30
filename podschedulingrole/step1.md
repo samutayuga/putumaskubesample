@@ -4,7 +4,7 @@ Inpect what nodes are there
 ```
 kubectl get nodes
 ```{{exec}}
-```
+
 
 The node need to be tainted and labelled as well.
 The taint determines on the pod which is owned by ootcloud will be accepted.
