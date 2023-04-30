@@ -97,11 +97,9 @@ Pod/other-non-tolerant-9c8544db6-k7mk8  default-scheduler       FailedScheduling
 ...
 Pod/small-ootcloud-tolerant-6cd8855b7f-tqlmn    default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant-6cd8855b7f-tqlmn to controlplane
 ...
-Pod/small-ootcloud-tolerant-6cd8855b7f-tqlmn    kubelet Started Started container nginx
-...
 ```
 
-The deployment rollout is successfull
+Verify if the rollout is successfull
 
 `kubectl rollout status deployment small-ootcloud-tolerant -n magellan`{{exec}}
 

@@ -2,15 +2,96 @@
 
 We have observed that the pod from ootcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`, but not in the node with label, `podSize=LARGE`.
 
+`kubectl get pod,deployment -n magellan`{{exec}}
+
+```text
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-non-tolerant        0/1     1            0           57m
+deployment.apps/small-ootcloud-tolerant   0/1     1            0           40m
+
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/other-non-tolerant-9c8544db6-k7mk8         0/1     Pending   0          57m
+pod/small-ootcloud-tolerant-8547877cd6-2x2br   0/1     Pending   0          4m37s
+```
+
 Lets create the new pod that really requires the LARGE node.
 
-```shell
-kubectl run large-ootcloud-tolerant --image=nginx:alpine \
---overrides '{ "spec": { "tolerations": [ { "key": "owner","operator": "Equal", "value": "ootcloud", "effect": "NoSchedule" } ], "affinity": {"nodeAffinity": {"requiredDuringSchedulingIgnoredDuringExecution" : {"nodeSelectorTerms": [{"matchExpressions": [ {"key": "podSize", "operator": "In", "values": ["LARGE" ] } ] }] } }}  } }' \
--n magellan \
---dry-run=client \
--o yaml > /tmp/large-ootcloud-tolerant.yaml 
+Repeat the step 4,
+`kubectl create deployment large-ootcloud-tolerant --image=nginx:alpine -n magellan  --dry-run=client -o yaml > /tmp/large-ootcloud-tolerant.yaml`{{exec}}
 
+Open the manifest in edit mode,
+
+`vim /tmp/large-ootcloud-tolerant.yaml`{{exec}}
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: large-ootcloud-tolerant
+  name: large-ootcloud-tolerant
+  namespace: magellan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: large-ootcloud-tolerant
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: large-ootcloud-tolerant
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        resources: {}
+status: {}
+```
+
+At the pod level, add the tolerations and nodeAffinity, so that it becomes,
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: large-ootcloud-tolerant
+  name: large-ootcloud-tolerant
+  namespace: magellan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: large-ootcloud-tolerant
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: large-ootcloud-tolerant
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        resources: {}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "podSize"
+                    operator: "Equal"
+                    value: "LARGE"
+      tolerations:
+        - key: owner
+          operator: Equal
+          value: ootcloud
+          effect: NoSchedule
+status: {}
 ```
 
 then apply it,
