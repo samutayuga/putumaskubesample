@@ -32,3 +32,17 @@ The result is,
 ```text
 Waiting for deployment "other-non-tolerant" rollout to finish: 0 of 1 updated replicas are available...
 ```
+
+Check the pod and deployment in magellan namespace
+
+`kubectl get deployment,pod -n magellan`{{exec}}
+
+```text
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-non-tolerant        0/1     1            0           2m9s
+deployment.apps/small-ootcloud-tolerant   1/1     1            1           73s
+
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/other-non-tolerant-9c8544db6-ffl55         0/1     Pending   0          2m9s
+pod/small-ootcloud-tolerant-6cd8855b7f-msww4   1/1     Running   0          73s
+```
