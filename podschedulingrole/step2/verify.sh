@@ -1,2 +1,2 @@
 #!/bin/sh
-kubectl get node -l podSize=SMALL
+if kubectl get node -l podSize=SMALL; then exit 0; else exit 1; fi

@@ -15,7 +15,7 @@
         },
         {
             "title": "Create a non tolereant pod",
-            "text": "step2/step2.md",
+            "text": "step2/text.md",
             "verity": "step2/verify.sh"
          },
          {
