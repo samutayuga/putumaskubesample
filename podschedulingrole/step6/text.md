@@ -84,8 +84,9 @@ spec:
             nodeSelectorTerms:
               - matchExpressions:
                   - key: "podSize"
-                    operator: "Equal"
-                    value: "LARGE"
+                    operator: "In"
+                    values: 
+                    - "LARGE"
       tolerations:
         - key: owner
           operator: Equal
@@ -120,3 +121,15 @@ Pod/small-ootcloud-tolerant     default-scheduler       FailedScheduling        
 ```
 
 Final state of the `large-ootcloud-tolerant` is `Started`
+
+```text
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/large-ootcloud-tolerant   1/1     1            1           8s
+deployment.apps/other-non-tolerant        0/1     1            0           10m
+deployment.apps/small-ootcloud-tolerant   0/1     1            0           9m21s
+
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/large-ootcloud-tolerant-6fd5849cb8-p59gs   1/1     Running   0          8s
+pod/other-non-tolerant-9c8544db6-h2pwm         0/1     Pending   0          10m
+pod/small-ootcloud-tolerant-6cd8855b7f-svnbx   0/1     Pending   0          3m
+```

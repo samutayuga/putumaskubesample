@@ -2,7 +2,7 @@
 
 Check the inital state of the deployment in `magellan` namespace
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment, pod -n magellan`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE

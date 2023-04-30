@@ -2,7 +2,7 @@
 
 We have observed that the pod from ootcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`. Verify with the listing pod and deployment in magellan namespace,
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment, pod -n magellan`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
