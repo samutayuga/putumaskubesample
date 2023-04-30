@@ -21,7 +21,7 @@ So node's label is about the particular pod willl be in which node. Lets this no
 
 Verify if taint and label applied on node properly,
 
-````
+```
 kubectl describe node controlplane |grep  "Taints:"
 kubectl describe node controlplane |grep -A 7  "Labels:"
 ```{{exec}}
