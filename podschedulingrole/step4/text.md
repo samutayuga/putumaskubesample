@@ -67,3 +67,17 @@ The result is,
 ```text
 deployment "small-ootcloud-tolerant" successfully rolled out
 ```
+
+The magellan namespace now has one deployment in pending and one in running state same as before.
+
+`kubectl get deployment,pod -n magellan`{{exec}}
+
+```text
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-non-tolerant        0/1     1            0           4m49s
+deployment.apps/small-ootcloud-tolerant   1/1     1            1           3m1s
+
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/other-non-tolerant-9c8544db6-7dd5c         0/1     Pending   0          4m49s
+pod/small-ootcloud-tolerant-6cd8855b7f-qz5f4   1/1     Running   0          65s
+```
