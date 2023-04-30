@@ -16,7 +16,7 @@ Verify if the scheduling is failed, by extracting events inside the namespace `m
 ```
 kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\t"}}{{.message}}{{"\n"}}{{end}}'
 
-```{{exec}}
+```
 
 Example output,
 
