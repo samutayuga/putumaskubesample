@@ -97,11 +97,11 @@ status: {}
 
 then apply it,
 
-`kubectl apply -f /tmp/large-ootcloud-tolerant.yaml`
+`kubectl apply -f /tmp/large-ootcloud-tolerant.yaml`{{exec}}
 
 Extact the events,
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\t"}}{{.message}}{{"\n"}}{{end}}'`
+`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
 Pod/large-ootcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/large-ootcloud-tolerant to controlplane

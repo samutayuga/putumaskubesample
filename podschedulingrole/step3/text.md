@@ -1,8 +1,20 @@
-# Create a deployment with tolerant pod
+# A deployment with tolerant pod and match nodeSelector label will be able to rollout
 
-Leave the `other-non-torelant` deployment in `Pending`.
+## Step
 
-Create another deployment in `magellan` namespace with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=ootcloud:NoSchedule`. This represents the deployment from ootcloud team. In real world scenario, this could be a kind of standard apps with low computing capacity requirement.
+Leave the `other-non-torelant` deployment in `Pending`. With this, the status on `magellan` namespace is,
+
+`kubectl get deployment,pod -n magellan`{{exec}}
+
+```text
+NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-non-tolerant   0/1     1            0           10m
+
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/other-non-tolerant-9c8544db6-gw7ls   0/1     Pending   0          10m
+```
+
+Create another deployment in `magellan` namespace with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=ootcloud:NoSchedule`. This represents the deployment from ootcloud team.
 
 Initiate the manifest creation with imperative approach,
 Save the manifest into a file `/tmp/small-ootcloud-tolerant.yaml`
@@ -86,16 +98,21 @@ spec:
 status: {}
 ```
 
+Apply it,
+
+`kubectl apply -f /tmp/small-ootcloud-tolerant.yaml`{{exec}}
+
+## Verify
+
 Observe the events inside the namespace `magellan`, try to extract the event object and output it into go-template
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{ .source.component}}{{"\t"}}{{ .reason}}{{"\t"}}{{.message}}{{"\n"}}{{end}}'`
+`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 Example output,
 
 ```text
-Pod/other-non-tolerant-9c8544db6-k7mk8  default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-...
-Pod/small-ootcloud-tolerant-6cd8855b7f-tqlmn    default-scheduler       Scheduled       Successfully assigned magellan/small-ootcloud-tolerant-6cd8855b7f-tqlmn to controlplane
+Pod/other-non-tolerant-9c8544db6-gw7ls  0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-ootcloud-tolerant-6cd8855b7f-zm2x9    Successfully assigned magellan/small-ootcloud-tolerant-6cd8855b7f-zm2x9 to controlplane
 ...
 ```
 
