@@ -29,7 +29,7 @@ Lets change node's taint,
 
 Make sure the taint is applied properly,
 
-`kubectl describe node controlplane |grep "Taints:`{{exec}}
+`kubectl describe node controlplane |grep "Taints:"`{{exec}}
 
 ```text
 Taints:             owner=kuiperbelt:NoSchedule
