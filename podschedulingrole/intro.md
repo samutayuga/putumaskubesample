@@ -1,14 +1,14 @@
 # Experiment the pod life cycle with the effect of node rule
 
-The `ootcloud` team owns magellan namespace. Due to recent expansion of the team, the nodes occupation will need to regulate, as well. For instance, the team is only allowed to deploy their workload into its designated node.
+The `oortcloud` team owns magellan namespace. Due to recent expansion of the team, the nodes occupation will need to regulate, as well. For instance, the team is only allowed to deploy their workload into its designated node.
 
-The organization cannot afford to have `ootcloud` team to wrongly deploy their apps into other node that is not supposed to be.
+The organization cannot afford to have `oortcloud` team to wrongly deploy their apps into other node that is not supposed to be.
 
-At the same time, no apps from other team should be deployed into `ootcloud` team's designated node. In addition to this, the number of nodes that the team belongs to, may be extended to very near future, up to two or three. The same rules will apply to the new nodes. For the moment, the team has only one node in the cluster, which is still sufficient with current traffic.
+At the same time, no apps from other team should be deployed into `oortcloud` team's designated node. In addition to this, the number of nodes that the team belongs to, may be extended to very near future, up to two or three. The same rules will apply to the new nodes. For the moment, the team has only one node in the cluster, which is still sufficient with current traffic.
 
 It implies few things,
 
-* the node should have a way to prevent other pods than those from ootcloud to be scheduled. This can be achieved through taint (on the node) and toleration (on the pod)
+* the node should have a way to prevent other pods than those from oortcloud to be scheduled. This can be achieved through taint (on the node) and toleration (on the pod)
 
 * no pod should go to the non tainted node. This can't be achieved by taint alone. It can be achieved by `nodeSelector` (on pod) and `label` (on node)
 

@@ -6,7 +6,7 @@ Create namespace
 
 `kubectl create namespace magellan`{{exec}}
 
-Create a deployment `other-non-tolerant` in `magellan` namespace with `nginx:alpine` image. This deployment is belong to the team `kuiper-belt` which is not tolerant to the taint applied in node. It tolerants to the taints defined as `owner=kuiperbelt:NoSchedule`
+Create a deployment `other-non-tolerant` in `magellan` namespace with `nginx:alpine` image. This deployment is belong to the team `kuiperbelt` which is not tolerant to the taint applied in node. It tolerants to the taints defined as `owner=kuiperbelt:NoSchedule`
 
 Initiate the manifest creation with imperative approach,
 Save the manifest into a file `/tmp/other-kuiperbelt.yaml`
@@ -100,7 +100,7 @@ Verify if the scheduling is failed, by extracting events inside the namespace `m
 Example output,
 
 ```text
-Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: ootcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 
 ```

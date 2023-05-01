@@ -1,105 +1,53 @@
-# Validate if podSize=LARGE can schedule in the node
+# Validate if deployment from kuiperbelt team can schedule on node with owner=kuiperbelt taint
 
-We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`, but not in the node with label, `podSize=LARGE`.
+So far, we have seen the deployment from `other-kuiperbelt` team remains in `pending` state because its pods is not tolerant to the node, as what the message in the events,
+
+```text
+Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+```
+
+The `magellan` namespace has the following status,
 
 `kubectl get pod,deployment -n magellan`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-non-tolerant        0/1     1            0           57m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           40m
+deployment.apps/large-oortcloud-tolerant   1/1     1            1           8s
+deployment.apps/other-non-tolerant        0/1     1            0           10m
+deployment.apps/small-oortcloud-tolerant   0/1     1            0           9m21s
 
 NAME                                           READY   STATUS    RESTARTS   AGE
-pod/other-non-tolerant-9c8544db6-k7mk8         0/1     Pending   0          57m
-pod/small-oortcloud-tolerant-8547877cd6-2x2br   0/1     Pending   0          4m37s
+pod/large-oortcloud-tolerant-6fd5849cb8-p59gs   1/1     Running   0          8s
+pod/other-non-tolerant-9c8544db6-h2pwm         0/1     Pending   0          10m
+pod/small-oortcloud-tolerant-6cd8855b7f-svnbx   0/1     Pending   0          3m
+
 ```
 
-Lets create the new pod that really requires the LARGE node.
+Lets change node's taint,
 
-Repeat the step 4,
-`kubectl create deployment large-oortcloud-tolerant --image=nginx:alpine -n magellan  --dry-run=client -o yaml > /tmp/large-oortcloud-tolerant.yaml`{{exec}}
+`kubectl taint node controlplane owner=kuiperbelt:NoSchedule --overwrite`{{exec}}
 
-Open the manifest in edit mode,
+Make sure the taint is applied properly,
 
-`vim /tmp/large-oortcloud-tolerant.yaml`{{exec}}
+`kubectl get taint node controlplane |grep "Taints:"`{{exec}}
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  creationTimestamp: null
-  labels:
-    app: large-oortcloud-tolerant
-  name: large-oortcloud-tolerant
-  namespace: magellan
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: large-oortcloud-tolerant
-  strategy: {}
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: large-oortcloud-tolerant
-    spec:
-      containers:
-      - image: nginx:alpine
-        name: nginx
-        resources: {}
-status: {}
-```
+Restart the deployment `other-kuiperbelt`.
 
-At the pod level, add the tolerations and nodeAffinity, so that it becomes,
+`kubectl scale deployment -n magellan other-kuiperbelt --replicas 0`{{exec}}
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  creationTimestamp: null
-  labels:
-    app: large-oortcloud-tolerant
-  name: large-oortcloud-tolerant
-  namespace: magellan
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: large-oortcloud-tolerant
-  strategy: {}
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: large-oortcloud-tolerant
-    spec:
-      containers:
-      - image: nginx:alpine
-        name: nginx
-        resources: {}
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: "podSize"
-                    operator: "In"
-                    values: 
-                    - "LARGE"
-      tolerations:
-        - key: owner
-          operator: Equal
-          value: oortcloud
-          effect: NoSchedule
-status: {}
-```
+`kubectl scale deployment -n magellan other-kuiperbelt --replicas 1`{{exec}}
 
-then apply it,
+Restart the `small-oortcloud-tolerant` and `large-oortcloud-tolerant` as well.
 
-`kubectl apply -f /tmp/large-oortcloud-tolerant.yaml`{{exec}}
+`kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 0`{{exec}}
 
-Extact the events,
+`kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 1`{{exec}}
+
+`kubectl scale deployment -n magellan large-oortcloud-tolerant --replicas 0`{{exec}}
+
+`kubectl scale deployment -n magellan large-oortcloud-tolerant --replicas 1`{{exec}}
+
+## Verify
 
 `kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
@@ -135,3 +83,5 @@ pod/large-oortcloud-tolerant-6fd5849cb8-p59gs   1/1     Running   0          8s
 pod/other-non-tolerant-9c8544db6-h2pwm         0/1     Pending   0          10m
 pod/small-oortcloud-tolerant-6cd8855b7f-svnbx   0/1     Pending   0          3m
 ```
+
+Yes, only the `other-kuiperbelt` is now up and running.

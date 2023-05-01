@@ -39,7 +39,14 @@
             "title": "Create a pod with the corresponding toleration and podSize=LARGE",
             "text": "step6/text.md",
             "verity": "step6/verify.sh"
-         }
+         },
+        {
+
+          "title": "Change taint to owner=kuiperbelt",
+          "text": "step7/text.md",
+          "verity": "step7/verify.sh"
+       }
+        
         
       ],
       "finish": {
