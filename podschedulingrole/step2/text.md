@@ -100,7 +100,7 @@ Verify if the scheduling is failed, by extracting events inside the namespace `m
 Example output,
 
 ```text
-Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 
 ```
@@ -121,8 +121,8 @@ Check the pod and deployment in magellan namespace
 
 ```text
 NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-kuiperbelt   0/1     1            0           2m56s
+deployment.apps/other-kuiperbelt   0/1     1            0           82s
 
 NAME                                    READY   STATUS    RESTARTS   AGE
-pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1     Pending   0          2m56s
+pod/other-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
 ```

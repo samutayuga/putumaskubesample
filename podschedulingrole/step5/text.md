@@ -47,13 +47,13 @@ Inspect the warning entry, try to extract the event object and output it into to
 Example output,
 
 ```text
-Pod/other-non-tolerant-9c8544db6-gw7ls  0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-6b44df898d-jr9vj    0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
-Pod/small-oortcloud-tolerant-6cd8855b7f-5cr2b    Successfully assigned magellan/small-oortcloud-tolerant-6cd8855b7f-5cr2b to controlplane
+Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned magellan/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
 ...
-Pod/small-oortcloud-tolerant-6cd8855b7f-r7zt5    0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-6cd8855b7f-zm2x9    Successfully assigned magellan/small-oortcloud-tolerant-6cd8855b7f-zm2x9 to controlplane
+Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 ```
 
@@ -74,11 +74,11 @@ Now the deployment and pods are in pending
 `kubectl get deployment,pod -n magellan`{{exec}}
 
 ```text
-NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-non-tolerant        0/1     1            0           42m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           24m
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-kuiperbelt           0/1     1            0           16m
+deployment.apps/small-oortcloud-tolerant   0/1     1            0           11m
 
-NAME                                           READY   STATUS    RESTARTS   AGE
-pod/other-non-tolerant-9c8544db6-gw7ls         0/1     Pending   0          42m
-pod/small-oortcloud-tolerant-6cd8855b7f-r7zt5   0/1     Pending   0          4m30s
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          16m
+pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1     Pending   0          2m48s
 ```

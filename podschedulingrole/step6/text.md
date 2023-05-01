@@ -104,20 +104,15 @@ Extact the events,
 `kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
-Pod/large-oortcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/large-oortcloud-tolerant to controlplane
+Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned magellan/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
 ...
-Pod/large-oortcloud-tolerant     kubelet Started Started container large-oortcloud-tolerant
-Pod/other-non-tolerant  default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
-Pod/small-oortcloud-tolerant     kubelet Created Created container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     kubelet Started Started container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     kubelet Killing Stopping container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     default-scheduler       Scheduled       Successfully assigned magellan/small-oortcloud-tolerant to controlplane
-Pod/small-oortcloud-tolerant     kubelet Pulled  Container image "nginx:alpine" already present on machine
-Pod/small-oortcloud-tolerant     kubelet Created Created container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     kubelet Started Started container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     kubelet Killing Stopping container small-oortcloud-tolerant
-Pod/small-oortcloud-tolerant     default-scheduler       FailedScheduling        0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+...
+Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned magellan/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
+...
+Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ```
 
 Final state of the `large-oortcloud-tolerant` is `Started`
@@ -125,13 +120,14 @@ Final state of the `large-oortcloud-tolerant` is `Started`
 `kubectl get deployment,pod -n magellan`{{exec}}
 
 ```text
-NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/large-oortcloud-tolerant   1/1     1            1           8s
-deployment.apps/other-non-tolerant        0/1     1            0           10m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           9m21s
+controlplane $ kubectl get deployment,pod -n magellan
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/large-oortcloud-tolerant   1/1     1            1           2m51s
+deployment.apps/other-kuiperbelt           0/1     1            0           23m
+deployment.apps/small-oortcloud-tolerant   0/1     1            0           17m
 
-NAME                                           READY   STATUS    RESTARTS   AGE
-pod/large-oortcloud-tolerant-6fd5849cb8-p59gs   1/1     Running   0          8s
-pod/other-non-tolerant-9c8544db6-h2pwm         0/1     Pending   0          10m
-pod/small-oortcloud-tolerant-6cd8855b7f-svnbx   0/1     Pending   0          3m
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   1/1     Running   0          2m51s
+pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          23m
+pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1     Pending   0          9m25s
 ```

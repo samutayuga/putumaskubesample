@@ -7,11 +7,11 @@ Leave the `other-non-torelant` deployment in `Pending`. With this, the status on
 `kubectl get deployment,pod -n magellan`{{exec}}
 
 ```text
-NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-non-tolerant   0/1     1            0           10m
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-kuiperbelt   0/1     1            0           82s
 
-NAME                                     READY   STATUS    RESTARTS   AGE
-pod/other-non-tolerant-9c8544db6-gw7ls   0/1     Pending   0          10m
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/other-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
 ```
 
 Create another deployment in `magellan` namespace with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from oortcloud team.
@@ -111,8 +111,9 @@ Observe the events inside the namespace `magellan`, try to extract the event obj
 Example output,
 
 ```text
-Pod/other-non-tolerant-9c8544db6-gw7ls  0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-6cd8855b7f-zm2x9    Successfully assigned magellan/small-oortcloud-tolerant-6cd8855b7f-zm2x9 to controlplane
+Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+
 ...
 ```
 
@@ -131,11 +132,11 @@ The magellan namespace now has one deployment in pending and one in running stat
 `kubectl get deployment,pod -n magellan`{{exec}}
 
 ```text
-NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-non-tolerant        0/1     1            0           2m5s
-deployment.apps/small-oortcloud-tolerant   1/1     1            1           17s
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/other-kuiperbelt           0/1     1            0           7m9s
+deployment.apps/small-oortcloud-tolerant   1/1     1            1           93s
 
-NAME                                           READY   STATUS    RESTARTS   AGE
-pod/other-non-tolerant-9c8544db6-7dd5c         0/1     Pending   0          2m5s
-pod/small-oortcloud-tolerant-6cd8855b7f-khvxg   1/1     Running   0          17s
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          7m9s
+pod/small-oortcloud-tolerant-68cf48777c-z8mr8   1/1     Running   0          93s
 ```
