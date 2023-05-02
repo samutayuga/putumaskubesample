@@ -6,9 +6,9 @@ So far, we have seen the deployment from `other-kuiperbelt` team remains in `pen
 Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ```
 
-The `magellan` namespace has the following status,
+The `oortcloud` namespace has the following status,
 
-`kubectl get pod,deployment -n magellan`{{exec}}
+`kubectl get pod,deployment -n oortcloud`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -37,28 +37,28 @@ Taints:             owner=kuiperbelt:NoSchedule
 
 Restart the deployment `other-kuiperbelt`.
 
-`kubectl scale deployment -n magellan other-kuiperbelt --replicas 0`{{exec}}
+`kubectl scale deployment -n oortcloud other-kuiperbelt --replicas 0`{{exec}}
 
-`kubectl scale deployment -n magellan other-kuiperbelt --replicas 1`{{exec}}
+`kubectl scale deployment -n oortcloud other-kuiperbelt --replicas 1`{{exec}}
 
 Restart the `small-oortcloud-tolerant` and `large-oortcloud-tolerant` as well.
 
-`kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 0`{{exec}}
+`kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 0`{{exec}}
 
-`kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 1`{{exec}}
+`kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 1`{{exec}}
 
-`kubectl scale deployment -n magellan large-oortcloud-tolerant --replicas 0`{{exec}}
+`kubectl scale deployment -n oortcloud large-oortcloud-tolerant --replicas 0`{{exec}}
 
-`kubectl scale deployment -n magellan large-oortcloud-tolerant --replicas 1`{{exec}}
+`kubectl scale deployment -n oortcloud large-oortcloud-tolerant --replicas 1`{{exec}}
 
 ## Verify
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
 Pod/large-oortcloud-tolerant-5fd7797bb8-8crxx   0/1 nodes are available: 1 node(s) had untolerated taint {owner: kuiperbelt}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
-Pod/other-kuiperbelt-6dbc7774bd-vvddq   Successfully assigned magellan/other-kuiperbelt-6dbc7774bd-vvddq to controlplane
+Pod/other-kuiperbelt-6dbc7774bd-vvddq   Successfully assigned oortcloud/other-kuiperbelt-6dbc7774bd-vvddq to controlplane
 ....
 Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
@@ -66,7 +66,7 @@ Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(
 
 Final state of the `large-oortcloud-tolerant` is `Started`
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

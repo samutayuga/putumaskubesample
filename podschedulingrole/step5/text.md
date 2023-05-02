@@ -1,8 +1,8 @@
 # Validate if the pod with the same rule is no longer schedule in node with podSize=LARGE
 
-We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`. Verify by listing pod and deployment in magellan namespace,
+We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`. Verify by listing pod and deployment in oortcloud namespace,
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -34,24 +34,24 @@ Labels:             beta.kubernetes.io/arch=amd64
 Scale down `small-oortcloud-tolerant` deployment then scale up
 
 ```
-kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 0
-kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 1
+kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 0
+kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 1
 ```{{exec}}
 
 This will trigger pod redeployment
 
 Inspect the warning entry, try to extract the event object and output it into to-template
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 Example output,
 
 ```text
 Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
-Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned magellan/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
+Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned oortcloud/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
 ...
 Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
@@ -61,7 +61,7 @@ At line says, the `Pod/small-oortcloud-tolerant-6cd8855b7f-r7zt5` if failed due 
 
 Verify if the rollout is pending
 
-`kubectl rollout status deployment small-oortcloud-tolerant -n magellan`{{exec}}
+`kubectl rollout status deployment small-oortcloud-tolerant -n oortcloud`{{exec}}
 
 The result is,
 
@@ -71,7 +71,7 @@ Waiting for deployment "small-oortcloud-tolerant" rollout to finish: 0 of 1 upda
 
 Now the deployment and pods are in pending
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

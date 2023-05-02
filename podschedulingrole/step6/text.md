@@ -2,7 +2,7 @@
 
 We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`, but not in the node with label, `podSize=LARGE`.
 
-`kubectl get pod,deployment -n magellan`{{exec}}
+`kubectl get pod,deployment -n oortcloud`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -17,7 +17,7 @@ pod/small-oortcloud-tolerant-8547877cd6-2x2br   0/1     Pending   0          4m3
 Lets create the new pod that really requires the LARGE node.
 
 Repeat the step 4,
-`kubectl create deployment large-oortcloud-tolerant --image=nginx:alpine -n magellan  --dry-run=client -o yaml > /tmp/large-oortcloud-tolerant.yaml`{{exec}}
+`kubectl create deployment large-oortcloud-tolerant --image=nginx:alpine -n oortcloud  --dry-run=client -o yaml > /tmp/large-oortcloud-tolerant.yaml`{{exec}}
 
 Open the manifest in edit mode,
 
@@ -31,7 +31,7 @@ metadata:
   labels:
     app: large-oortcloud-tolerant
   name: large-oortcloud-tolerant
-  namespace: magellan
+  namespace: oortcloud
 spec:
   replicas: 1
   selector:
@@ -61,7 +61,7 @@ metadata:
   labels:
     app: large-oortcloud-tolerant
   name: large-oortcloud-tolerant
-  namespace: magellan
+  namespace: oortcloud
 spec:
   replicas: 1
   selector:
@@ -101,26 +101,26 @@ then apply it,
 
 Extact the events,
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
-Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned magellan/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
+Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned oortcloud/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
 ...
 Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
-Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned magellan/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
+Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned oortcloud/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
 ...
 Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ```
 
 Final state of the `large-oortcloud-tolerant` is `Started`
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
-controlplane $ kubectl get deployment,pod -n magellan
+controlplane $ kubectl get deployment,pod -n oortcloud
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/large-oortcloud-tolerant   1/1     1            1           2m51s
 deployment.apps/other-kuiperbelt           0/1     1            0           23m

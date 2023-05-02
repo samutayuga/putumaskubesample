@@ -2,9 +2,9 @@
 
 ## Step
 
-Leave the `other-non-torelant` deployment in `Pending`. With this, the status on `magellan` namespace is,
+Leave the `other-kuiperbelt` deployment in `Pending`. With this, the status on `kuiperbelt` namespace is,
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n kuiperbelt`{{exec}}
 
 ```text
 NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
@@ -14,12 +14,12 @@ NAME                                    READY   STATUS    RESTARTS   AGE
 pod/other-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
 ```
 
-Create another deployment in `magellan` namespace with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from oortcloud team.
+Create a new namespace, `oortcloud`. In this namespace create a deployment with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from `oortcloud` team.
 
 Initiate the manifest creation with imperative approach,
 Save the manifest into a file `/tmp/small-oortcloud-tolerant.yaml`
 
-`kubectl create deployment small-oortcloud-tolerant --image=nginx:alpine -n magellan  --dry-run=client -o yaml > /tmp/small-oortcloud-tolerant.yaml`{{exec}}
+`kubectl create deployment small-oortcloud-tolerant --image=nginx:alpine -n oortcloud  --dry-run=client -o yaml > /tmp/small-oortcloud-tolerant.yaml`{{exec}}
 
 Open the manifest in edit mode,
 
@@ -33,7 +33,7 @@ metadata:
   labels:
     app: small-oortcloud-tolerant
   name: small-oortcloud-tolerant
-  namespace: magellan
+  namespace: oortcloud
 spec:
   replicas: 1
   selector:
@@ -63,7 +63,7 @@ metadata:
   labels:
     app: small-oortcloud-tolerant
   name: small-oortcloud-tolerant
-  namespace: magellan
+  namespace: oortcloud
 spec:
   replicas: 1
   selector:
@@ -104,22 +104,22 @@ Apply it,
 
 ## Verify
 
-Observe the events inside the namespace `magellan`, try to extract the event object and output it into go-template
+Observe the events inside the namespace `oortcloud`, try to extract the event object and output it into go-template
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 Example output,
 
 ```text
 Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 
 ...
 ```
 
 Verify if the rollout is successfull
 
-`kubectl rollout status deployment small-oortcloud-tolerant -n magellan`{{exec}}
+`kubectl rollout status deployment small-oortcloud-tolerant -n oortcloud`{{exec}}
 
 The result is,
 
@@ -127,9 +127,9 @@ The result is,
 deployment "small-oortcloud-tolerant" successfully rolled out
 ```
 
-The magellan namespace now has one deployment in pending and one in running state,
+Cluster has one deployment in pending and one in running state,
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -A`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

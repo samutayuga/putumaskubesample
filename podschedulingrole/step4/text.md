@@ -2,9 +2,9 @@
 
 ## Step
 
-Check the inital state of the deployment in `magellan` namespace
+Check the inital state of the deployment in `oortcloud` namespace
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -37,30 +37,30 @@ Labels:             beta.kubernetes.io/arch=amd64
 Scale down then scale up the `small-oortcloud-tolerant` deployment  to trigger the pod rescheduling,
 
 ```
-kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 0
-kubectl scale deployment -n magellan small-oortcloud-tolerant --replicas 1
+kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 0
+kubectl scale deployment -n oortcloud small-oortcloud-tolerant --replicas 1
 ```{{exec}}
 
 ## Verify
 
 Inspect the warning entry, try to extract the event object and output it into `go-template`
 
-`kubectl get events -n magellan -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 Example output,
 
 ```text
 Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 Pod/small-oortcloud-tolerant-68cf48777c-kws6f   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned magellan/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
+Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
-Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned magellan/
+Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned oortcloud/
 ...
 ```
 
 Verify if the rollout is successfull
 
-`kubectl rollout status deployment small-oortcloud-tolerant -n magellan`{{exec}}
+`kubectl rollout status deployment small-oortcloud-tolerant -n oortcloud`{{exec}}
 
 The result is,
 
@@ -68,9 +68,9 @@ The result is,
 deployment "small-oortcloud-tolerant" successfully rolled out
 ```
 
-The magellan namespace now has one deployment in pending and one in running state same as before.
+The oortcloud namespace now has one deployment in pending and one in running state same as before.
 
-`kubectl get deployment,pod -n magellan`{{exec}}
+`kubectl get deployment,pod -n oortcloud`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
