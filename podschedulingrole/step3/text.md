@@ -14,7 +14,21 @@ NAME                                    READY   STATUS    RESTARTS   AGE
 pod/other-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
 ```
 
-Create a new namespace, `oortcloud`. In this namespace create a deployment with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from `oortcloud` team.
+Create a new namespace, `oortcloud`, `kubectl create namespace oortcloud`{{exec}}. In this namespace create a deployment with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from `oortcloud` team. In addition to that, add the nodeAffinity to the pod for this deployment,
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: podSize
+          operator: In
+          values:
+          - SMALL
+          - MEDIUM
+          
+
+```
 
 Initiate the manifest creation with imperative approach,
 Save the manifest into a file `/tmp/small-oortcloud-tolerant.yaml`
