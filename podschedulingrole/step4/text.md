@@ -70,7 +70,7 @@ deployment "small-oortcloud-tolerant" successfully rolled out
 
 The oortcloud namespace now has one deployment in pending and one in running state same as before.
 
-`kubectl get deployment,pod -n oortcloud`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

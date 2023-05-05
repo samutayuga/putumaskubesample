@@ -2,7 +2,7 @@
 
 We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`, but not in the node with label, `podSize=LARGE`.
 
-`kubectl get pod,deployment -n oortcloud`{{exec}}
+`kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -117,7 +117,7 @@ Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(
 
 Final state of the `large-oortcloud-tolerant` is `Started`
 
-`kubectl get deployment,pod -n oortcloud`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 controlplane $ kubectl get deployment,pod -n oortcloud

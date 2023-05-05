@@ -5,10 +5,9 @@ So far, we have seen the deployment from `other-kuiperbelt` team remains in `pen
 ```text
 Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ```
+In cluster, at this point of time, pod and deployments status are given as below,
 
-The `kuiperbelt` namespace has the following status,
-
-`kubectl get pod,deployment -n kuiperbelt`{{exec}}
+`kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -66,7 +65,7 @@ Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(
 
 Final state of the `other-kuiperbelt` is `Started`
 
-`kubectl get deployment,pod -n kuiperbelt`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

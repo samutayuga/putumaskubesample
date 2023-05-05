@@ -142,7 +142,7 @@ deployment "small-oortcloud-tolerant" successfully rolled out
 
 Cluster has one deployment in pending and one in running state,
 
-`kubectl get deployment,pod -A`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE

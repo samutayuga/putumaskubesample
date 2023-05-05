@@ -71,7 +71,7 @@ Waiting for deployment "small-oortcloud-tolerant" rollout to finish: 0 of 1 upda
 
 Now the deployment and pods are in pending
 
-`kubectl get deployment,pod -n oortcloud`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
