@@ -26,8 +26,7 @@ affinity:
           values:
           - SMALL
           - MEDIUM
-          
-
+    
 ```
 
 Initiate the manifest creation with imperative approach,
