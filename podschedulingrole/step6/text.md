@@ -1,6 +1,6 @@
 # Validate if podSize=LARGE can schedule in the node
 
-We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`, but not in the node with label, `podSize=LARGE`.
+We have observed that the pod from oortcloud is able to sechedule either in node with `compute=SMALL` or in node with `compute=MEDIUM`, but not in the node with label, `compute=LARGE`.
 
 `kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
@@ -83,7 +83,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: "podSize"
+                  - key: "compute"
                     operator: "In"
                     values: 
                     - "LARGE"

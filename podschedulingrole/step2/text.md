@@ -77,7 +77,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: podSize
+              - key: compute
                 operator: Exists
       tolerations:
       - key: owner
@@ -95,7 +95,7 @@ Apply it,
 
 Verify if the scheduling is failed, by extracting events inside the namespace `kuiperbelt`. Get necessary columns from the event object and output it into `go-template`
 
-`kubectl get events -n kuiperbelt -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n kuiperbelt -o go-template='{{ range .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 Example output,
 
@@ -117,7 +117,7 @@ Waiting for deployment "other-kuiperbelt" rollout to finish: 0 of 1 updated repl
 
 Check the pod and deployment in kuiperbelt namespace
 
-`kubectl get deployment,pod -n kuiperbelt`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)' `{{exec}}
 
 ```text
 NAME                               READY   UP-TO-DATE   AVAILABLE   AGE

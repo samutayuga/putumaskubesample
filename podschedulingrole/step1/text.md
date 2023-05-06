@@ -17,7 +17,7 @@ In taint notion, it can be written as below,
 Whereas the label, from the pod perspective, determines which node the it can go. The pod will be scheduled to the node with lable that match its `nodeSelector`.
 So node's label is about the particular pod will be in which node. Lets this node is for the pod with low.
 
-`kubectl label node controlplane podSize=SMALL`{{exec}}
+`kubectl label node controlplane compute=SMALL`{{exec}}
 
 Verify if taint and label applied on node properly,
 

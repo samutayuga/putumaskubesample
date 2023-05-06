@@ -21,7 +21,7 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: podSize
+        - key: compute
           operator: In
           values:
           - SMALL
@@ -98,7 +98,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: "podSize"
+                  - key: "compute"
                     operator: "In"
                     values:
                       - "SMALL"

@@ -1,6 +1,6 @@
 # Validate if the pod with the same rule is no longer schedule in node with podSize=LARGE
 
-We have observed that the pod from oortcloud is able to sechedule either in node with `podSize=SMALL` or in node with `podSize=MEDIUM`. Verify by listing pod and deployment in oortcloud namespace,
+We have observed that the pod from oortcloud is able to sechedule either in node with `compute=SMALL` or in node with `compute=MEDIUM`. Verify by listing pod and deployment in oortcloud namespace,
 
 `kubectl get deployment,pod -n oortcloud`{{exec}}
 
@@ -14,10 +14,10 @@ pod/other-non-tolerant-9c8544db6-k7mk8         0/1     Pending   0          39m
 pod/small-oortcloud-tolerant-5b56889bd5-4dgg4   1/1     Running   0          8m50s
 ```
 
-Lets assume there is only a node for ETL job which has the label, `podSize=LARGE`.
+Lets assume there is only a node for ETL job which has the label, `compute=LARGE`.
 Change the label for the node,
 
-`kubectl label node controlplane podSize=LARGE --overwrite`{{exec}}
+`kubectl label node controlplane compute=LARGE --overwrite`{{exec}}
 
 Check if the node label has changed.
 
