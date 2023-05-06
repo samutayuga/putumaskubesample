@@ -101,7 +101,7 @@ then apply it,
 
 Extact the events,
 
-`kubectl get events -n oortcloud -o go-template='{{ range $k,$v := .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
+`kubectl get events -n oortcloud -o go-template='{{ range .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
 Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned oortcloud/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
@@ -117,17 +117,17 @@ Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(
 
 Final state of the `large-oortcloud-tolerant` is `Started`
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'`{{exec}}
 
 ```text
-controlplane $ kubectl get deployment,pod -n oortcloud
-NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/large-oortcloud-tolerant   1/1     1            1           2m51s
-deployment.apps/other-kuiperbelt           0/1     1            0           23m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           17m
+controlplane $ kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'
+NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+kuiperbelt   deployment.apps/other-kuiperbelt           0/1     1            0           16m
+oortcloud    deployment.apps/large-oortcloud-tolerant   1/1     1            1           5m44s
+oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           15m
 
-NAME                                            READY   STATUS    RESTARTS   AGE
-pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   1/1     Running   0          2m51s
-pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          23m
-pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1     Pending   0          9m25s
+NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
+kuiperbelt   pod/other-kuiperbelt-6dbc7774bd-mc7zg           0/1     Pending   0          16m
+oortcloud    pod/large-oortcloud-tolerant-5fd7797bb8-fm5pc   1/1     Running   0          3m12s
+oortcloud    pod/small-oortcloud-tolerant-76658bdf49-8pj7l   0/1     Pending   0          13m
 ```

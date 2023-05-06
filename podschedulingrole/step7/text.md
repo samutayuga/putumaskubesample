@@ -7,7 +7,7 @@ Pod/other-kuiperbelt-6dbc7774bd-5gh5w   0/1 nodes are available: 1 node(s) had u
 ```
 In cluster, at this point of time, pod and deployments status are given as below,
 
-`kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
