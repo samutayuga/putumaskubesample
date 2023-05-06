@@ -145,11 +145,11 @@ Cluster has one deployment in pending and one in running state,
 `kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
-NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-kuiperbelt           0/1     1            0           7m9s
-deployment.apps/small-oortcloud-tolerant   1/1     1            1           93s
+NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+kuiperbelt   deployment.apps/other-kuiperbelt           0/1     1            0           13m
+oortcloud    deployment.apps/small-oortcloud-tolerant   1/1     1            1           4m40s
 
-NAME                                            READY   STATUS    RESTARTS   AGE
-pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          7m9s
-pod/small-oortcloud-tolerant-68cf48777c-z8mr8   1/1     Running   0          93s
+NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
+kuiperbelt   pod/other-kuiperbelt-7c596d75bf-ksxhf           0/1     Pending   0          13m
+oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-p6jsg   1/1     Running   0          4m40s
 ```

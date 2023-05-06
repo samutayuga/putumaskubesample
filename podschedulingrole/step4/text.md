@@ -22,15 +22,11 @@ With one pod in `Pending` and one in `Running`, it represents the pod that is ac
 
 Check if the node label has changed.
 
-`kubectl describe node controlplane |grep -A 7  "Labels:"`{{exec}}
+`kubectl describe node controlplane |grep -A 7  "Labels:"|grep "compute="`{{exec}}
 
 ```text
-controlplane $ k describe node controlplane 
-Name:               controlplane
-Roles:              control-plane
-Labels:             beta.kubernetes.io/arch=amd64
-                    ...
-                    podSize=MEDIUM
+controlplane $ kubectl describe node controlplane |grep -A 7  "Labels:" | grep "compute="
+                    compute=LARGE
 ...
 ```
 

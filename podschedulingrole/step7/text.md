@@ -68,15 +68,15 @@ Final state of the `other-kuiperbelt` is `Started`
 `kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant,large-oortcloud-tolerant)'`{{exec}}
 
 ```text
-NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/large-oortcloud-tolerant   0/1     1            0           17m
-deployment.apps/other-kuiperbelt           1/1     1            1           37m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           32m
+NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+kuiperbelt   deployment.apps/other-kuiperbelt           1/1     1            1           35m
+oortcloud    deployment.apps/large-oortcloud-tolerant   0/1     1            0           7m44s
+oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           26m
 
-NAME                                            READY   STATUS    RESTARTS   AGE
-pod/large-oortcloud-tolerant-5fd7797bb8-8crxx   0/1     Pending   0          11m
-pod/other-kuiperbelt-6dbc7774bd-vvddq           1/1     Running   0          3m7s
-pod/small-oortcloud-tolerant-76658bdf49-tbp6n   0/1     Pending   0          11m
+NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
+kuiperbelt   pod/other-kuiperbelt-7c596d75bf-nxg4c           1/1     Running   0          4m49s
+oortcloud    pod/large-oortcloud-tolerant-57c74d458c-nljr8   0/1     Pending   0          4m41s
+oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-58mwn   0/1     Pending   0          4m36s
 ```
 
 Yes, only the `other-kuiperbelt` is now up and running.
