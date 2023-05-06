@@ -21,7 +21,7 @@ Change the label for the node,
 
 Check if the node label has changed.
 
-`kubectl describe node controlplane |grep -A 7  "Labels:"`{{exec}}
+`kubectl describe node controlplane |grep -A 7  "Labels:" | grep "compute="`{{exec}}
 
 ```text
 Name:               controlplane

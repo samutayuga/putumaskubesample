@@ -23,5 +23,5 @@ Verify if taint and label applied on node properly,
 
 ```
 kubectl describe node controlplane |grep  "Taints:"
-kubectl describe node controlplane |grep -A 7  "Labels:"
+kubectl describe node controlplane |grep -A 7  "Labels:"|grep "compute="
 ```{{exec}}
