@@ -1,8 +1,8 @@
-# Validate if podSize=LARGE can schedule in the node
+# Validate if compute=LARGE can schedule in the node
 
 We have observed that the pod from oortcloud is able to sechedule either in node with `compute=SMALL` or in node with `compute=MEDIUM`, but not in the node with label, `compute=LARGE`.
 
-`kubectl get pod,deployment -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get pod,deployment -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -106,7 +106,7 @@ Extact the events,
 ```text
 Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned oortcloud/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
 ...
-Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
@@ -117,17 +117,17 @@ Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(
 
 Final state of the `large-oortcloud-tolerant` is `Started`
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'`{{exec}}
 
 ```text
-controlplane $ kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'
+controlplane $ kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'
 NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-kuiperbelt   deployment.apps/other-kuiperbelt           0/1     1            0           16m
+kuiperbelt   deployment.apps/any-kuiperbelt           0/1     1            0           16m
 oortcloud    deployment.apps/large-oortcloud-tolerant   1/1     1            1           5m44s
 oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           15m
 
 NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
-kuiperbelt   pod/other-kuiperbelt-6dbc7774bd-mc7zg           0/1     Pending   0          16m
+kuiperbelt   pod/any-kuiperbelt-6dbc7774bd-mc7zg           0/1     Pending   0          16m
 oortcloud    pod/large-oortcloud-tolerant-5fd7797bb8-fm5pc   1/1     Running   0          3m12s
 oortcloud    pod/small-oortcloud-tolerant-76658bdf49-8pj7l   0/1     Pending   0          13m
 ```

@@ -1,4 +1,4 @@
-# Validate if the pod with the same rule is no longer schedule in node with podSize=LARGE
+# Validate if the pod with the same rule is no longer schedule in node with compute=LARGE
 
 We have observed that the pod from oortcloud is able to sechedule either in node with `compute=SMALL` or in node with `compute=MEDIUM`. Verify by listing pod and deployment in oortcloud namespace,
 
@@ -27,7 +27,7 @@ Check if the node label has changed.
 Name:               controlplane
 Labels:             beta.kubernetes.io/arch=amd64
                     ....
-                    podSize=LARGE
+                    compute=LARGE
 
 ```
 
@@ -47,7 +47,7 @@ Inspect the warning entry, try to extract the event object and output it into to
 Example output,
 
 ```text
-Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 
 Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
@@ -71,14 +71,14 @@ Waiting for deployment "small-oortcloud-tolerant" rollout to finish: 0 of 1 upda
 
 Now the deployment and pods are in pending
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-kuiperbelt           0/1     1            0           16m
+deployment.apps/any-kuiperbelt           0/1     1            0           16m
 deployment.apps/small-oortcloud-tolerant   0/1     1            0           11m
 
 NAME                                            READY   STATUS    RESTARTS   AGE
-pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          16m
+pod/any-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          16m
 pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1     Pending   0          2m48s
 ```

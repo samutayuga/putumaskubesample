@@ -1,10 +1,10 @@
-# Validate if the pod with the same rule still schedule in node with label podSize=MEDIUM
+# Validate if the pod with the same rule still schedule in node with label compute=MEDIUM
 
 ## Step
 
 Check the inital state of the deployment for `oortcloud` and `kuiperbelt` related pod and deployment
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -46,7 +46,7 @@ Inspect the warning entry, try to extract the event object and output it into `g
 Example output,
 
 ```text
-Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 Pod/small-oortcloud-tolerant-68cf48777c-kws6f   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 ...
@@ -66,14 +66,14 @@ deployment "small-oortcloud-tolerant" successfully rolled out
 
 The oortcloud namespace now has one deployment in pending and one in running state same as before.
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-kuiperbelt           0/1     1            0           13m
+deployment.apps/any-kuiperbelt           0/1     1            0           13m
 deployment.apps/small-oortcloud-tolerant   1/1     1            1           7m57s
 
 NAME                                            READY   STATUS    RESTARTS   AGE
-pod/other-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          13m
+pod/any-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          13m
 pod/small-oortcloud-tolerant-76658bdf49-2ks2k   1/1     Running   0          2m26s
 ```

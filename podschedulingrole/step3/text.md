@@ -2,19 +2,7 @@
 
 ## Step
 
-Leave the `other-kuiperbelt` deployment in `Pending`. With this, the status on `kuiperbelt` namespace is,
-
-`kubectl get deployment,pod -n kuiperbelt`{{exec}}
-
-```text
-NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/other-kuiperbelt   0/1     1            0           82s
-
-NAME                                    READY   STATUS    RESTARTS   AGE
-pod/other-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
-```
-
-Create a new namespace, `oortcloud`, `kubectl create namespace oortcloud`{{exec}}. In this namespace create a deployment with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from `oortcloud` team. In addition to that, add the nodeAffinity to the pod for this deployment,
+Leave the `any-kuiperbelt` deployment in `Pending`. Create a new namespace, `oortcloud`, `kubectl create namespace oortcloud`{{exec}}. In this namespace create a deployment with `nginx:alpine` image and make its pod tolerant to `controlplane` node which its taint  is `owner=oortcloud:NoSchedule`. This represents the deployment from `oortcloud` team. In addition to that, add the `nodeAffinity` to the pod for this deployment,
 ```yaml
 affinity:
   nodeAffinity:
@@ -124,7 +112,7 @@ Observe the events inside the namespace `oortcloud`, try to extract the event ob
 Example output,
 
 ```text
-Pod/other-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
 
 ...
@@ -142,14 +130,14 @@ deployment "small-oortcloud-tolerant" successfully rolled out
 
 Cluster has one deployment in pending and one in running state,
 
-`kubectl get deployment,pod -A -l 'app in (other-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
+`kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
 NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-kuiperbelt   deployment.apps/other-kuiperbelt           0/1     1            0           13m
+kuiperbelt   deployment.apps/any-kuiperbelt           0/1     1            0           13m
 oortcloud    deployment.apps/small-oortcloud-tolerant   1/1     1            1           4m40s
 
 NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
-kuiperbelt   pod/other-kuiperbelt-7c596d75bf-ksxhf           0/1     Pending   0          13m
+kuiperbelt   pod/any-kuiperbelt-7c596d75bf-ksxhf           0/1     Pending   0          13m
 oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-p6jsg   1/1     Running   0          4m40s
 ```
