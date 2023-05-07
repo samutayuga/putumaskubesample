@@ -47,13 +47,7 @@ Inspect the warning entry, try to extract the event object and output it into to
 Example output,
 
 ```text
-Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
-...
-Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned oortcloud/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
-...
-Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/small-oortcloud-tolerant-6546b85b4d-pktrf   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 ```
 
@@ -74,11 +68,11 @@ Now the deployment and pods are in pending
 `kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
-NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/any-kuiperbelt           0/1     1            0           16m
-deployment.apps/small-oortcloud-tolerant   0/1     1            0           11m
+NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+kuiperbelt   deployment.apps/any-kuiperbelt             0/1     1            0           11m
+oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           8m56s
 
-NAME                                            READY   STATUS    RESTARTS   AGE
-pod/any-kuiperbelt-6b8d869686-4w69v           0/1     Pending   0          16m
-pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1     Pending   0          2m48s
+NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
+kuiperbelt   pod/any-kuiperbelt-7bc984dc5c-hrm7p             0/1     Pending   0          11m
+oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-pktrf   0/1     Pending   0          51s
 ```

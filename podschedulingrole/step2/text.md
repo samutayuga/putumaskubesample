@@ -100,7 +100,7 @@ Verify if the scheduling is failed, by extracting events inside the namespace `k
 Example output,
 
 ```text
-Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
+Pod/any-kuiperbelt-7bc984dc5c-hrm7p     0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ...
 
 
@@ -123,9 +123,9 @@ Check the pod and deployment in kuiperbelt namespace
 `kubectl get deployment,pod -A -l 'app in (any-kuiperbelt)' `{{exec}}
 
 ```text
-NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/any-kuiperbelt   0/1     1            0           82s
+NAMESPACE    NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
+kuiperbelt   deployment.apps/any-kuiperbelt   0/1     1            0           107s
 
-NAME                                    READY   STATUS    RESTARTS   AGE
-pod/any-kuiperbelt-6b8d869686-4w69v   0/1     Pending   0          82s
+NAMESPACE    NAME                                  READY   STATUS    RESTARTS   AGE
+kuiperbelt   pod/any-kuiperbelt-7bc984dc5c-hrm7p   0/1     Pending   0          107s
 ```

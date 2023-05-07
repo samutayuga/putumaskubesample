@@ -25,3 +25,12 @@ Verify if taint and label applied on node properly,
 kubectl describe node controlplane |grep  "Taints:"
 kubectl describe node controlplane |grep -A 7  "Labels:"|grep "compute="
 ```{{exec}}
+
+Result is,
+
+```text
+controlplane $ kubectl describe node controlplane |grep  "Taints:"
+Taints:             owner=oortcloud:NoSchedule
+controlplane $ kubectl describe node controlplane |grep -A 7  "Labels:"|grep "compute="
+                    compute=SMALL
+```

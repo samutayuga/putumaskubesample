@@ -104,15 +104,8 @@ Extact the events,
 `kubectl get events -n oortcloud -o go-template='{{ range .items }}{{ .involvedObject.kind}}{{"/"}}{{.involvedObject.name}}{{"\t"}}{{.message}}{{"\n"}}{{end}}' |grep Pod`{{exec}}
 
 ```text
-Pod/large-oortcloud-tolerant-5fd7797bb8-nj6jx   Successfully assigned oortcloud/large-oortcloud-tolerant-5fd7797bb8-nj6jx to controlplane
+Pod/large-oortcloud-tolerant-57c74d458c-sv4lt   Successfully assigned oortcloud/large-oortcloud-tolerant-57c74d458c-sv4lt to controlplane
 ...
-Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-...
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
-...
-Pod/small-oortcloud-tolerant-76658bdf49-2ks2k   Successfully assigned oortcloud/small-oortcloud-tolerant-76658bdf49-2ks2k to controlplane
-...
-Pod/small-oortcloud-tolerant-76658bdf49-lp4kc   0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
 ```
 
 Final state of the `large-oortcloud-tolerant` is `Started`
@@ -122,12 +115,12 @@ Final state of the `large-oortcloud-tolerant` is `Started`
 ```text
 controlplane $ kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant, large-oortcloud-tolerant)'
 NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-kuiperbelt   deployment.apps/any-kuiperbelt           0/1     1            0           16m
-oortcloud    deployment.apps/large-oortcloud-tolerant   1/1     1            1           5m44s
-oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           15m
+kuiperbelt   deployment.apps/any-kuiperbelt             0/1     1            0           14m
+oortcloud    deployment.apps/large-oortcloud-tolerant   1/1     1            1           105s
+oortcloud    deployment.apps/small-oortcloud-tolerant   0/1     1            0           11m
 
 NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
-kuiperbelt   pod/any-kuiperbelt-6dbc7774bd-mc7zg           0/1     Pending   0          16m
-oortcloud    pod/large-oortcloud-tolerant-5fd7797bb8-fm5pc   1/1     Running   0          3m12s
-oortcloud    pod/small-oortcloud-tolerant-76658bdf49-8pj7l   0/1     Pending   0          13m
+kuiperbelt   pod/any-kuiperbelt-7bc984dc5c-hrm7p             0/1     Pending   0          14m
+oortcloud    pod/large-oortcloud-tolerant-57c74d458c-sv4lt   1/1     Running   0          103s
+oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-pktrf   0/1     Pending   0          3m40s
 ```

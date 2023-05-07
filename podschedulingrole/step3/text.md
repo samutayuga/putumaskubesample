@@ -112,9 +112,7 @@ Observe the events inside the namespace `oortcloud`, try to extract the event ob
 Example output,
 
 ```text
-Pod/any-kuiperbelt-6b8d869686-4w69v   0/1 nodes are available: 1 node(s) had untolerated taint {owner: oortcloud}. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling..
-Pod/small-oortcloud-tolerant-68cf48777c-z8mr8   Successfully assigned oortcloud/small-oortcloud-tolerant-68cf48777c-z8mr8 to controlplane
-
+Pod/small-oortcloud-tolerant-6546b85b4d-rsrsk   Successfully assigned oortcloud/small-oortcloud-tolerant-6546b85b4d-rsrsk to controlplane
 ...
 ```
 
@@ -133,11 +131,12 @@ Cluster has one deployment in pending and one in running state,
 `kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'`{{exec}}
 
 ```text
+controlplane $ kubectl get deployment,pod -A -l 'app in (any-kuiperbelt, small-oortcloud-tolerant)'
 NAMESPACE    NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
-kuiperbelt   deployment.apps/any-kuiperbelt           0/1     1            0           13m
-oortcloud    deployment.apps/small-oortcloud-tolerant   1/1     1            1           4m40s
+kuiperbelt   deployment.apps/any-kuiperbelt             0/1     1            0           5m36s
+oortcloud    deployment.apps/small-oortcloud-tolerant   1/1     1            1           2m33s
 
 NAMESPACE    NAME                                            READY   STATUS    RESTARTS   AGE
-kuiperbelt   pod/any-kuiperbelt-7c596d75bf-ksxhf           0/1     Pending   0          13m
-oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-p6jsg   1/1     Running   0          4m40s
+kuiperbelt   pod/any-kuiperbelt-7bc984dc5c-hrm7p             0/1     Pending   0          5m36s
+oortcloud    pod/small-oortcloud-tolerant-6546b85b4d-rsrsk   1/1     Running   0          2m33s
 ```
