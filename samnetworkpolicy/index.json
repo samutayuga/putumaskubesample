@@ -1,0 +1,31 @@
+
+ 
+
+{
+    "title": "Kubernetes Pod isolation",
+    "description": "How to isolate pods",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Create namespaces",
+          "text": "step1/text.md",
+          "verity": "step1/verify.sh"
+        },
+        {
+            "title": "Create network policy on andromeda namespace",
+            "text": "step2/text.md",
+            "verity": "step2/verify.sh"
+         }
+        
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
