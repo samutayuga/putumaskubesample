@@ -45,6 +45,16 @@ Lets craft the deployment manifest to mount the config map.
 vim fe.yaml
 ```{{exec}}
 
+## Create a secrets for docker registry
+```shell
+kubectl create secret docker-registry samutup-screts \
+--docker-server=https://hub.docker.com \
+--docker-username='$(value DOCKER_REGISTRY_USER)' \
+--docker-password='$(value DOCKER_REGISTRY_PASS)' \
+--docker-email="$(EMAIL)" \
+--output yaml --dry-run=client | kubectl apply -f - \
+```{{exec}}
+
 ## Add `volumes` under `spec.template.spec`
 ```yaml
 volumes:
