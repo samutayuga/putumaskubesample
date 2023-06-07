@@ -27,7 +27,7 @@ That command creates a yaml file, `app-config.yaml`
 
 **create config map**
 
-`kubectl create configmap fe-cm --from-file=app-config.yaml`{{exec}}
+`kubectl create configmap fe-cm --from-file=app-config.yaml -n magellan`{{exec}}
 
 ## Create a secrets for docker registry
 ```shell
