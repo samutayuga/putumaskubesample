@@ -58,7 +58,7 @@ kubectl patch serviceaccount samutup-secrets \
 ```shell
 kubectl create deployment frontend \
 --image=samutup/http-ping:0.0.1 -n magellan \
--o yaml 
+-o yaml \
 --dry-run=client > fe.yaml
 ```{{exec}}
 
