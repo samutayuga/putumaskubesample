@@ -29,6 +29,30 @@ That command creates a yaml file, `app-config.yaml`
 
 `kubectl create configmap fe-cm --from-file=app-config.yaml`{{exec}}
 
+## Create a secrets for docker registry
+```shell
+kubectl create secret docker-registry samutup-secrets \
+--docker-server=https://hub.docker.com \
+--docker-username='$(value DOCKER_REGISTRY_USER)' \
+--docker-password='$(value DOCKER_REGISTRY_PASS)' \
+--docker-email="$(EMAIL)" \
+--namespace magellan \
+--output yaml --dry-run=client | kubectl apply -f - \
+```{{exec}}
+
+## Create a service account that holds the `imagePullSecrets`
+
+```shell
+kubectl create serviceaccount netpol-sa -n magellan
+```{{exec}}
+
+`Patch the service account to link it to the imagePullSecrets`
+
+```shell
+kubectl patch serviceaccount samutup-secrets \
+-p "{\"imagePullSecrets\": [{\"name\": \"samutup-secrets\" }] }"
+```{{exec}}
+
 # Create a deployment backend
 
 ```shell
@@ -43,16 +67,6 @@ Lets craft the deployment manifest to mount the config map.
 
 ```shell
 vim fe.yaml
-```{{exec}}
-
-## Create a secrets for docker registry
-```shell
-kubectl create secret docker-registry samutup-screts \
---docker-server=https://hub.docker.com \
---docker-username='$(value DOCKER_REGISTRY_USER)' \
---docker-password='$(value DOCKER_REGISTRY_PASS)' \
---docker-email="$(EMAIL)" \
---output yaml --dry-run=client | kubectl apply -f - \
 ```{{exec}}
 
 ## Add `volumes` under `spec.template.spec`
@@ -89,6 +103,13 @@ containers:
   failureThreshold: 5
   successThreshold: 1
 ```
+
+## Change the manifest, `spec.serviceAccountName`  to use service account `netpol-sa`
+
+```yaml
+serviceAccountName: netpol-sa
+```
+
 In the end,
 
 ```shell
@@ -109,6 +130,7 @@ spec:
       labels:
         app: frontend
     spec:
+      serviceAccountName: netpol-sa
       containers:
       - image: samutup/http-ping:0.0.1
         name: http-ping
