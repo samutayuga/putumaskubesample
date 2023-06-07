@@ -37,7 +37,7 @@ kubectl create secret docker-registry samutup-secrets \
 --docker-password='$(value DOCKER_REGISTRY_PASS)' \
 --docker-email="$(EMAIL)" \
 --namespace magellan \
---output yaml --dry-run=client | kubectl apply -f - \
+--output yaml --dry-run=client | kubectl apply -f -
 ```{{exec}}
 
 ## Create a service account that holds the `imagePullSecrets`
