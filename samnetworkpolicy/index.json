@@ -33,7 +33,12 @@
            "title": "Call the frontend without network policy",
            "text": "step5/text.md",
            "verity": "step5/verify.sh"
-        }
+        },
+        {
+          "title": "Testing with network policy",
+          "text": "step6/text.md",
+          "verity": "step6/verify.sh"
+       }
         
       ],
       "finish": {
