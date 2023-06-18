@@ -70,7 +70,7 @@ Create a service
 Verify
 
 
-`kubectl get all -l app=backend -n magellan`{{exec}}
+`kubectl get all -l app=storage -n magellan`{{exec}}
 
 
 

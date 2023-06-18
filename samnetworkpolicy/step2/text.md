@@ -249,16 +249,14 @@ replicaset.apps/frontend-86b7fb7dc7   1         1         1       10m
 ```
 Expose the deployment into service,
 
-```shell
-kubectl expose deployment -n magellan frontend \ 
---port=8080 \
---target-port=5115
-```{{exec}}
+
+`kubectl expose deployment -n magellan frontend --port 8080 --target-port 5115`{{exec}}
 
 Verify if service created,
 
+`k get all -n magellan -n app=frontend`{{exec}}
+
 ```shell
-controlplane $ k get all -n magellan 
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/frontend-86b7fb7dc7-gtb8z   1/1     Running   0          14m
 
