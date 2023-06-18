@@ -236,8 +236,12 @@ EOF
 ```{{exec}}
 
 Verify if the deployment is working fine.
+
+
+`k get all -n magellan -l app=frontend`{{exec}}
+
+
 ```shell
-controlplane $ k get all -n magellan 
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/frontend-86b7fb7dc7-gtb8z   1/1     Running   0          10m
 
@@ -254,7 +258,7 @@ Expose the deployment into service,
 
 Verify if service created,
 
-`k get all -n magellan -n app=frontend`{{exec}}
+`k get all -n magellan -l app=frontend`{{exec}}
 
 ```shell
 NAME                            READY   STATUS    RESTARTS   AGE

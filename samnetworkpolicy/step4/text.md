@@ -62,9 +62,14 @@ spec:
 EOF
 ```{{exec}}
 
+Verify if the deployment is working fine.
+
+
+`k get all -n magellan -l app=storage`{{exec}}
+
 Create a service
 
-`kubectl expose deployment -n magellan backend --target-port 5115 --port=8081`{{exec}}
+`kubectl expose deployment -n magellan storage --target-port 5115 --port=8082`{{exec}}
 
 
 Verify
