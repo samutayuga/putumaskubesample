@@ -83,7 +83,7 @@ The result will be,
 
 ```
 kubectl run testing-storage --image=nginx:alpine -it --rm --force \
--- wget -S -O- http://storage.magellan.svc.cluster.local:8081/propagate
+-- wget -S -O- http://storage.magellan.svc.cluster.local:8082/propagate
 ```{{exec}}
 
 The result will be,
