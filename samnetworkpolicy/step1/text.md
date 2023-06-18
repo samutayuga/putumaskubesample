@@ -58,30 +58,33 @@ kubectl patch serviceaccount -n magellan netpol-sa \
 
 ```shell
 kubectl create deployment frontend \
---image=samutup/http-ping:0.0.1 -n magellan \
+--image=samutup/http-ping:1.0.0 -n magellan \
 -o yaml \
 --dry-run=client > fe.yaml
 ```{{exec}}
 
-Lets craft the deployment manifest to mount the config map.
+Lets craft the deployment manifest for the following purpose,
 
 
-```shell
-vim fe.yaml
-```{{exec}}
 
-## Add `volumes` under `spec.template.spec`
+
+`vim fe.yaml`{{exec}}
+
+Mount the config map
+
+Add `volumes` under `spec.template.spec`
+
 ```yaml
 volumes:
 - name: fe-v
   configMap:
     name: fe-cm
     items:
-    - key: http-ping.yaml
-      path: http-ping.yaml
+    - key: app-config.yaml
+      path: app-config.yaml
 ```
 
-## Add `volumeMounts` under `spec.template.spec.containers.volumeMounts`
+Add `volumeMounts` under `spec.template.spec.containers.volumeMounts`
 
 ```yaml
 containers:
@@ -90,7 +93,8 @@ containers:
   - name: fe-v
     mountPath: /app/config
 ```
-## Add `readinessProbe` under `spec.template.spec.containers`
+
+Add `readinessProbe` under `spec.template.spec.containers`
 
 
 ```yaml
@@ -106,10 +110,124 @@ containers:
     successThreshold: 1
 ```
 
-## Change the manifest, `spec.serviceAccountName`  to use service account `netpol-sa`
+Change the manifest, `spec.template.spec.serviceAccountName`  to use service account `netpol-sa`
 
 ```yaml
-serviceAccountName: netpol-sa
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  ...
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      serviceAccountName: netpol-sa
+      ...
+```
+
+Override Command and Args
+
+```yaml
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      serviceAccountName: netpol-sa
+      containers:
+      - image: samutup/http-ping:0.0.1
+        name: http-ping
+        command:
+        - "/app/http-ping"
+        args:
+        - "-config=/app/config/app-config.yaml"
+```
+
+The `command` overwrites the DockerFile's `ENTRYPOINT`instruction.
+
+With the command,
+```shell
+ docker inspect samutup/http-ping:1.0.0 |grep -A 4 "Entrypoint"
+```
+it will show,
+
+```json
+...
+  "Entrypoint": [
+                "/app/http-ping",
+                "-config=/app/config/sam-ping.yaml"
+            ],
+
+```
+In this scenario, we will demonstrate how the docker image's Entrypoint is overwritten by the `command` and `args` directive of pod manifest.
+In this example, the command is following the entrypoint which executing the `/app/http-ping` binary while the arguments is ovwerwritten to, `-config=/app/config/app-config.yaml`. 
+
+Another changes is to use the non root user to run the container which is managed under the `containers.securityContext` directive.
+
+Lets verify that the Docker image itself allows the non user root to run the container.
+
+```shell
+ docker inspect samutup/http-ping:1.0.0 |grep "User"
+```
+it will show,
+
+```json
+...
+ ...
+"User": "appuser",
+
+```
+All right, it is showing the user is `appuser`
+
+The changes for deployment manifest is as follow,
+
+```yaml
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      serviceAccountName: netpol-sa
+      containers:
+      - image: samutup/http-ping:0.0.1
+        name: http-ping
+        command:
+        - "/app/http-ping"
+        args:
+        - "-config=/app/config/app-config.yaml"
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
+...
 ```
 
 In the end,
@@ -136,6 +254,15 @@ spec:
       containers:
       - image: samutup/http-ping:0.0.1
         name: http-ping
+        command:
+        - "/app/http-ping"
+        args:
+        - "-config=/app/config/app-config.yaml"
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
         resources: {}
         volumeMounts:
         - mountPath: /app/config
