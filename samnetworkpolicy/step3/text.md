@@ -6,7 +6,7 @@ Reuse the `secret`, `config map` and `service account`
 `Create the deployment`
 
 ```shell
-kubectl apply -f - << EOF
+kubectl apply -n magellan -f - << EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
