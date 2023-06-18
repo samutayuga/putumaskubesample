@@ -10,20 +10,25 @@
       },
       "steps": [
         {
-          "title": "Create namespaces",
+          "title": "Prerequisites",
           "text": "step1/text.md",
           "verity": "step1/verify.sh"
         },
         {
-            "title": "Create Backend",
+            "title": "Create Frontend",
             "text": "step2/text.md",
             "verity": "step2/verify.sh"
          },
          {
-             "title": "Create Storage",
+             "title": "Create Backend",
              "text": "step3/text.md",
              "verity": "step3/verify.sh"
-          }
+          },
+          {
+            "title": "Create Storage",
+            "text": "step4/text.md",
+            "verity": "step4/verify.sh"
+         }
         
       ],
       "finish": {
