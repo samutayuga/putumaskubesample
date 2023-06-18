@@ -50,7 +50,7 @@ kubectl create serviceaccount netpol-sa -n magellan
 `Patch the service account to link it to the imagePullSecrets`
 
 ```shell
-kubectl patch serviceaccount netpol-sa \
+kubectl patch serviceaccount -n magellan netpol-sa \
 -p "{\"imagePullSecrets\": [{\"name\": \"samutup-secrets\" }] }"
 ```{{exec}}
 
