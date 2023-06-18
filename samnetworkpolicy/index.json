@@ -28,7 +28,12 @@
             "title": "Create Storage",
             "text": "step4/text.md",
             "verity": "step4/verify.sh"
-         }
+         },
+         {
+           "title": "Call the frontend without network policy",
+           "text": "step5/text.md",
+           "verity": "step5/verify.sh"
+        }
         
       ],
       "finish": {
