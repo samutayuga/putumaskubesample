@@ -233,7 +233,8 @@ spec:
 In the end,
 
 ```shell
-kubectl apply -f - apiVersion: apps/v1 << EOF
+kubectl apply -f - << EOF
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
