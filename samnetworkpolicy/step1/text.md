@@ -2,7 +2,7 @@
 
 Create namespaces
 
-`kubectl create namespace maggellan`{{exec}}
+`kubectl create namespace magellan`{{exec}}
 
 Create the configmap from a file
 
