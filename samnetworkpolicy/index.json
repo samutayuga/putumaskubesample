@@ -15,10 +15,15 @@
           "verity": "step1/verify.sh"
         },
         {
-            "title": "Create network policy on andromeda namespace",
+            "title": "Create Backend",
             "text": "step2/text.md",
             "verity": "step2/verify.sh"
-         }
+         },
+         {
+             "title": "Create Storage",
+             "text": "step3/text.md",
+             "verity": "step3/verify.sh"
+          }
         
       ],
       "finish": {

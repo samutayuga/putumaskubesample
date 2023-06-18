@@ -27,7 +27,7 @@ That command creates a yaml file, `app-config.yaml`
 
 **create config map**
 
-`kubectl create configmap fe-cm --from-file=app-config.yaml -n magellan`{{exec}}
+`kubectl create configmap app-cm --from-file=app-config.yaml -n magellan`{{exec}}
 
 
 ## Create a secrets for docker registry
@@ -78,7 +78,7 @@ Add `volumes` under `spec.template.spec`
 volumes:
 - name: fe-v
   configMap:
-    name: fe-cm
+    name: app-cm
     items:
     - key: app-config.yaml
       path: app-config.yaml
@@ -254,6 +254,9 @@ spec:
       containers:
       - image: samutup/http-ping:0.0.1
         name: http-ping
+        env:
+        - name: APP_NAME
+          value: Frontend
         command:
         - "/app/http-ping"
         args:
@@ -266,7 +269,7 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /app/config
-          name: fe-cm
+          name: fe-v
         readinessProbe:
           httpGet:
             path: /ping
@@ -276,15 +279,51 @@ spec:
           failureThreshold: 5
           successThreshold: 1
       volumes:
-      - name: fe-cm
+      - name: fe-v
         configMap:
-          name: app-config
+          name: app-cm
           items:
-          - key: sam-ping.yaml
-            path: sam-ping.yaml
+          - key: app-config.yaml
+            path: app-config.yaml
 EOF
 ```{{exec}}
 
+Verify if the deployment is working fine.
+```shell
+controlplane $ k get all -n magellan 
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/frontend-86b7fb7dc7-gtb8z   1/1     Running   0          10m
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/frontend   1/1     1            1           10m
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/frontend-86b7fb7dc7   1         1         1       10m
+```
+Expose the deployment into service,
+
+```shell
+kubectl expose deployment -n magellan frontend \ 
+--port=8080 \
+--target-port=5115
+```{{exec}}
+
+Verify if service created,
+
+```shell
+controlplane $ k get all -n magellan 
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/frontend-86b7fb7dc7-gtb8z   1/1     Running   0          14m
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/frontend   ClusterIP   10.101.93.214   <none>        8080/TCP   35s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/frontend   1/1     1            1           14m
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/frontend-86b7fb7dc7   1         1         1       14m
+```
 
 
 

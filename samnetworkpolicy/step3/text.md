@@ -1,6 +1,6 @@
-# Create backend
+# Create storage
 
-Repeat the previous step for the backend,
+Repeat the previous step for the storage,
 Reuse the `secret`, `config map` and `service account`
 
 `Create the deployment`
@@ -10,18 +10,18 @@ kubectl apply -f - apiVersion: apps/v1 << EOF
 kind: Deployment
 metadata:
   labels:
-    app: backend
-  name: backend
+    app: storage
+  name: storage
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: storage
   strategy: {}
   template:
     metadata:
       labels:
-        app: backend
+        app: storage
     spec:
       serviceAccountName: netpol-sa
       containers:
@@ -29,7 +29,7 @@ spec:
         name: http-ping
         env:
         - name: APP_NAME
-          value: backend
+          value: storage
         command:
         - "/app/http-ping"
         args:
@@ -42,7 +42,7 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /app/config
-          name: be-v
+          name: storage-v
         readinessProbe:
           httpGet:
             path: /ping
@@ -52,7 +52,7 @@ spec:
           failureThreshold: 5
           successThreshold: 1
       volumes:
-      - name: be-v
+      - name: storage-v
         configMap:
           name: app-cm
           items:
