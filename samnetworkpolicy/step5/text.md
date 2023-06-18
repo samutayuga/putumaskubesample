@@ -13,7 +13,7 @@ kubectl run testing-fe --image=nginx:alpine \
 --rm 
 --force 
 -- 
-wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
+wget -O- http://frontend.magellan.svc.cluster.local:8080/propagate
 ```{{exec}}
 
 
