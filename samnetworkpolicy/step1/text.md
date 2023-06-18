@@ -81,7 +81,7 @@ volumes:
       path: http-ping.yaml
 ```
 
-## Add `volumeMounts` under `spec.template.spec.volumeMounts`
+## Add `volumeMounts` under `spec.template.spec.containers.volumeMounts`
 
 ```yaml
 containers:
@@ -97,12 +97,13 @@ containers:
 containers:
 - image: ...
   readinessProbe:
-    httpGet: /ping
-    port: 5115
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  failureThreshold: 5
-  successThreshold: 1
+    httpGet: 
+      path: /ping
+      port: 5115
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    failureThreshold: 5
+    successThreshold: 1
 ```
 
 ## Change the manifest, `spec.serviceAccountName`  to use service account `netpol-sa`
