@@ -29,6 +29,7 @@ That command creates a yaml file, `app-config.yaml`
 
 `kubectl create configmap fe-cm --from-file=app-config.yaml -n magellan`{{exec}}
 
+
 ## Create a secrets for docker registry
 ```shell
 kubectl create secret docker-registry samutup-secrets \
@@ -49,7 +50,7 @@ kubectl create serviceaccount netpol-sa -n magellan
 `Patch the service account to link it to the imagePullSecrets`
 
 ```shell
-kubectl patch serviceaccount samutup-secrets \
+kubectl patch serviceaccount netpol-sa \
 -p "{\"imagePullSecrets\": [{\"name\": \"samutup-secrets\" }] }"
 ```{{exec}}
 
