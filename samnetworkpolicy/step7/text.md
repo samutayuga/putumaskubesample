@@ -61,26 +61,26 @@ The result will be,
   {
     "ResponseCode": 200,
     "ResponseMessage": "200 OK",
-    "Origin": "backend-b685b6b7b-xjx6g",
-    "Destination": "http://backend.magellan.svc.cluster.local:8081/ping"
-  },
-  {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "backend-b685b6b7b-xjx6g",
+    "Origin": "backend-b685b6b7b-zjbdd",
     "Destination": "http://storage.magellan.svc.cluster.local:8082/ping"
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "backend-b685b6b7b-xjx6g",
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"https://www.google.com\": dial tcp 74.125.68.147:443: i/o timeout",
+    "Origin": "backend-b685b6b7b-zjbdd",
+    "Destination": "https://www.google.com"
+  },
+  {
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"http://frontend.magellan.svc.cluster.local:8080/ping\": dial tcp 10.106.29.216:8080: i/o timeout",
+    "Origin": "backend-b685b6b7b-zjbdd",
     "Destination": "http://frontend.magellan.svc.cluster.local:8080/ping"
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "backend-b685b6b7b-xjx6g",
-    "Destination": "https://www.google.com"
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"http://backend.magellan.svc.cluster.local:8081/ping\": dial tcp 10.111.42.95:8081: i/o timeout",
+    "Origin": "backend-b685b6b7b-zjbdd",
+    "Destination": "http://backend.magellan.svc.cluster.local:8081/ping"
   }
 ]
 ```
@@ -95,28 +95,28 @@ The result will be,
 ```json
 [
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "storage-5d9c7b77f4-jhr58",
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"http://storage.magellan.svc.cluster.local:8082/ping\": dial tcp 10.111.160.82:8082: i/o timeout",
+    "Origin": "storage-5d9c7b77f4-9d4mw",
     "Destination": "http://storage.magellan.svc.cluster.local:8082/ping"
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "storage-5d9c7b77f4-jhr58",
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"https://www.google.com\": dial tcp 142.251.12.99:443: i/o timeout",
+    "Origin": "storage-5d9c7b77f4-9d4mw",
+    "Destination": "https://www.google.com"
+  },
+  {
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"http://frontend.magellan.svc.cluster.local:8080/ping\": dial tcp 10.106.29.216:8080: i/o timeout",
+    "Origin": "storage-5d9c7b77f4-9d4mw",
     "Destination": "http://frontend.magellan.svc.cluster.local:8080/ping"
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "storage-5d9c7b77f4-jhr58",
+    "ResponseCode": -1,
+    "ResponseMessage": "Get \"http://backend.magellan.svc.cluster.local:8081/ping\": dial tcp 10.111.42.95:8081: i/o timeout",
+    "Origin": "storage-5d9c7b77f4-9d4mw",
     "Destination": "http://backend.magellan.svc.cluster.local:8081/ping"
-  },
-  {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "storage-5d9c7b77f4-jhr58",
-    "Destination": "https://www.google.com"
   }
 ]
 ```
