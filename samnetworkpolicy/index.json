@@ -35,10 +35,15 @@
            "verity": "step5/verify.sh"
         },
         {
-          "title": "Testing with network policy",
+          "title": "Prepare network policy",
           "text": "step6/text.md",
           "verity": "step6/verify.sh"
-       }
+       },
+       {
+         "title": "Testing with network policy",
+         "text": "step7/text.md",
+         "verity": "step7/verify.sh"
+      }
         
       ],
       "finish": {
