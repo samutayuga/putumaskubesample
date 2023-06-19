@@ -79,12 +79,13 @@ spec:
           values:
           - frontend
   egress:
-  - to:
+  - ports:
     - port: 53
       protocol: TCP
     - port: 53
       protocol: UDP
-  - podSelector:
+  - to:
+    - podSelector:
       matchExpressions:
       - key: app
         operator: In
