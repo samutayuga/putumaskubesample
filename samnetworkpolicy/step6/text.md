@@ -86,11 +86,11 @@ spec:
       protocol: UDP
   - to:
     - podSelector:
-      matchExpressions:
-      - key: app
-        operator: In
-        values:
-        - storage
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - storage
 EOF
 ```{{exec}}
 
