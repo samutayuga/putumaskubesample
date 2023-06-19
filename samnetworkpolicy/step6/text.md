@@ -93,5 +93,10 @@ spec:
 EOF
 ```{{exec}}
 
+Once it is applied in `magellan` namespace verify if it is created successfully
+
+`kubectl describe netpol -n magellan fe-netpol`{{exec}}
+
+`kubectl describe netpol -n magellan be-netpol`{{exec}}
 
 
