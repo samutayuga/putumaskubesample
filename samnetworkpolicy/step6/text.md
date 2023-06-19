@@ -31,7 +31,7 @@ spec:
   ingress:
   - from:
     - podSelector:
-        matchLabel:
+        matchLabels:
           app: tester
   egress:
   - ports:
