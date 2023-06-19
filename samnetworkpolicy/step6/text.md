@@ -32,7 +32,11 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: tester
+          app: tester-fe
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: tester
+          
   egress:
   - ports:
     - port: 53
@@ -78,6 +82,13 @@ spec:
           operator: In
           values:
           - frontend
+  - from:
+    - podSelector:
+        matchLabels:
+          app: tester-be
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: tester
   egress:
   - ports:
     - port: 53
@@ -94,10 +105,55 @@ spec:
 EOF
 ```{{exec}}
 
+`storage`
+
+```
+kubectl apply -n magellan -f - << EOF
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: st-netpol
+  namespace: magellan
+spec:
+  podSelector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - storage
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+          - backend
+  - from:
+    - podSelector:
+        matchLabels:
+          app: tester-st
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: tester
+  egress:
+  - ports:
+    - port: 53
+      protocol: TCP
+    - port: 53
+      protocol: UDP
+EOF
+```{{exec}}
+
 Once it is applied in `magellan` namespace verify if it is created successfully
 
 `kubectl describe netpol -n magellan fe-netpol`{{exec}}
 
 `kubectl describe netpol -n magellan be-netpol`{{exec}}
+
+`kubectl describe netpol -n magellan st-netpol`{{exec}}
 
 
