@@ -36,9 +36,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: tester
-    ports:
-    - port: 8080
-      protocol: TCP
   egress:
   - ports:
     - port: 53
@@ -87,9 +84,6 @@ spec:
           operator: In
           values:
           - frontend
-    ports:
-    - port: 8081
-      protocol: TCP
   - from:
     - podSelector:
         matchLabels:
@@ -143,9 +137,6 @@ spec:
           operator: In
           values:
           - backend
-    ports:
-    - port: 8082
-      protocol: TCP
   - from:
     - podSelector:
         matchLabels:
