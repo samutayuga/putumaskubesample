@@ -3,7 +3,7 @@
 Create a temporary pod to initiate the REST call from `frontend` service,
 
 ```shell
-curl http://frontend.magellan.svc.cluster.local:8080/propagate
+wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
 ```
 Use the `nginx:alpine` image
 
