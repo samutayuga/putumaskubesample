@@ -34,8 +34,8 @@ That command creates a yaml file, `app-config.yaml`
 ```shell
 kubectl create secret docker-registry samutup-secrets \
 --docker-server=https://hub.docker.com \
---docker-username='$(value DOCKER_REGISTRY_USER)' \
---docker-password='$(value DOCKER_REGISTRY_PASS)' \
+--docker-username=samutup \
+--docker-password=Balinese100% \
 --namespace magellan \
 --output yaml --dry-run=client | kubectl apply -f -
 ```{{exec}}

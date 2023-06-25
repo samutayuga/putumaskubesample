@@ -26,7 +26,7 @@ spec:
     spec:
       serviceAccountName: netpol-sa
       containers:
-      - image: samutup/http-ping:0.0.1
+      - image: samutup/http-ping:0.0.2
         name: http-ping
         env:
         - name: APP_NAME

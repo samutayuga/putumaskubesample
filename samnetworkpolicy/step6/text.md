@@ -49,9 +49,6 @@ spec:
           operator: In
           values:
           - backend
-    ports:
-    - port: 8081
-      protocol: TCP
 EOF
 ```{{exec}}
 
@@ -104,9 +101,6 @@ spec:
           operator: In
           values:
           - storage
-    ports:
-    - port: 8082
-      protocol: TCP
 EOF
 ```{{exec}}
 
