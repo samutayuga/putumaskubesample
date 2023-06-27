@@ -20,35 +20,33 @@ metadata:
   namespace: magellan
 spec:
   podSelector:
-    matchExpressions:
-      - key: app
-        operator: In
-        values:
-        - frontend
+    matchLabels:
+      app: frontend
   policyTypes:
-  - Ingress
   - Egress
+  - Ingress
   ingress:
   - from:
-    - podSelector:
-        matchLabels:
-          app: tester-fe
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: tester
+      podSelector:
+        matchLabels:
+          app: tester-fe
   egress:
-  - ports:
-    - port: 53
-      protocol: TCP
+  - to:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
     - port: 53
       protocol: UDP
+    
   - to:
     - podSelector:
-        matchExpressions:
-        - key: app
-          operator: In
-          values:
-          - backend
+        matchLabels:
+          app: backend
 EOF
 ```{{exec}}
 
@@ -65,42 +63,36 @@ metadata:
   namespace: magellan
 spec:
   podSelector:
-    matchExpressions:
-    - key: app
-      operator: In
-      values:
-      - backend
+    matchLabels:
+      app: backend
   policyTypes:
-  - Ingress
   - Egress
+  - Ingress
   ingress:
   - from:
     - podSelector:
-        matchExpressions:
-        - key: app
-          operator: In
-          values:
-          - frontend
-  - from:
-    - podSelector:
         matchLabels:
-          app: tester-be
+          app: frontend
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: tester
+      podSelector:
+        matchLabels:
+          app: tester-be
+        
   egress:
-  - ports:
-    - port: 53
-      protocol: TCP
-    - port: 53
-      protocol: UDP
   - to:
     - podSelector:
-        matchExpressions:
-        - key: app
-          operator: In
-          values:
-          - storage
+        matchLabels:
+          app: storage
+  - to:
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - port: 53
+      protocol: UDP
 EOF
 ```{{exec}}
 
@@ -115,35 +107,34 @@ metadata:
   namespace: magellan
 spec:
   podSelector:
-    matchExpressions:
-    - key: app
-      operator: In
-      values:
-      - storage
+    matchLabels:
+      app: storage
   policyTypes:
-  - Ingress
   - Egress
+  - Ingress
   ingress:
   - from:
     - podSelector:
-        matchExpressions:
-        - key: app
-          operator: In
-          values:
-          - backend
-  - from:
-    - podSelector:
         matchLabels:
-          app: tester-st
+          app: backend
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: tester
+      podSelector:
+        matchLabels:
+          app: tester-st 
   egress:
-  - ports:
-    - port: 53
-      protocol: TCP
-    - port: 53
-      protocol: UDP
+  - to: 
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+      - port: 53
+        protocol: UDP
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
 EOF
 ```{{exec}}
 
