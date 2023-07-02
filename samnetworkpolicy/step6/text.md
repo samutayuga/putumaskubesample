@@ -58,7 +58,7 @@ kubectl apply -n magellan -f - << EOF
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: netpol-be
+  name: be-netpol
   namespace: magellan
 spec:
   podSelector:
