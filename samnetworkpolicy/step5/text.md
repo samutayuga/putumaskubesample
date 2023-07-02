@@ -17,28 +17,25 @@ This will give result,
 ```json
 [
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "frontend-d69f6bfc6-kgswl",
-    "Destination": "http://frontend.magellan.svc.cluster.local:8080/ping"
+    "response_code": 200,
+    "message": "200 OK",
+    "from": "backend-6bcdf47dc8-t288v",
+    "to": "http://frontend.magellan.svc.cluster.local:8080/ping",
+    "dns_checking": "frontend.magellan.svc.cluster.local:8080 is resolved succesfully, ip address [10.96.150.124] "
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "frontend-d69f6bfc6-kgswl",
-    "Destination": "http://backend.magellan.svc.cluster.local:8081/ping"
+    "response_code": 200,
+    "message": "200 OK",
+    "from": "backend-6bcdf47dc8-t288v",
+    "to": "http://backend.magellan.svc.cluster.local:8081/ping",
+    "dns_checking": "backend.magellan.svc.cluster.local:8081 is resolved succesfully, ip address [10.110.118.240] "
   },
   {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "frontend-d69f6bfc6-kgswl",
-    "Destination": "http://storage.magellan.svc.cluster.local:8082/ping"
-  },
-  {
-    "ResponseCode": 200,
-    "ResponseMessage": "200 OK",
-    "Origin": "frontend-d69f6bfc6-kgswl",
-    "Destination": "https://www.google.com"
+    "response_code": 200,
+    "message": "200 OK",
+    "from": "backend-6bcdf47dc8-t288v",
+    "to": "https://www.google.com",
+    "dns_checking": "www.google.com is resolved succesfully, ip address [74.125.24.106 74.125.24.104 74.125.24.99 74.125.24.105 74.125.24.147 74.125.24.103 2404:6800:4003:c02::69 2404:6800:4003:c02::93 2404:6800:4003:c02::67 2404:6800:4003:c02::68] "
   }
 ]
 ```
