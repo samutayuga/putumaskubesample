@@ -32,7 +32,7 @@ spec:
           kubernetes.io/metadata.name: tester
       podSelector:
         matchLabels:
-          app: tester-fe
+          app: client-mock
   egress:
   - to:
     - namespaceSelector: {}
@@ -42,7 +42,6 @@ spec:
     ports:
     - port: 53
       protocol: UDP
-    
   - to:
     - podSelector:
         matchLabels:
@@ -59,7 +58,7 @@ kubectl apply -n magellan -f - << EOF
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: be-netpol
+  name: netpol-be
   namespace: magellan
 spec:
   podSelector:
@@ -70,22 +69,19 @@ spec:
   - Ingress
   ingress:
   - from:
-    - podSelector:
-        matchLabels:
-          app: frontend
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: tester
       podSelector:
         matchLabels:
-          app: tester-be
-        
-  egress:
-  - to:
+          app: client-mock
     - podSelector:
         matchLabels:
-          app: storage
+          app: frontend
+  egress:
   - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
     - namespaceSelector: {}
       podSelector:
         matchLabels:

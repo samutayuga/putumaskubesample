@@ -18,8 +18,6 @@ endPoints:
   url: http://frontend.magellan.svc.cluster.local:8080/ping
 - name: backend
   url: http://backend.magellan.svc.cluster.local:8081/ping
-- name: storage 
-  url: http://storage.magellan.svc.cluster.local:8082/ping
 EOF
 ```{{exec}}
 

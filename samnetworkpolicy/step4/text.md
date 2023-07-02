@@ -26,7 +26,7 @@ spec:
     spec:
       serviceAccountName: netpol-sa
       containers:
-      - image: samutup/http-ping:0.0.4
+      - image: samutup/http-ping:0.0.6
         name: http-ping
         env:
         - name: APP_NAME
@@ -34,7 +34,9 @@ spec:
         command:
         - "/app/http-ping"
         args:
-        - "-config=/app/config/app-config.yaml"
+        - "launchHttp"
+        - "--appName=storage"
+        - "--config=/app/config/app-config.yaml"
         securityContext:
           allowPrivilegeEscalation: false
           runAsNonRoot: true
