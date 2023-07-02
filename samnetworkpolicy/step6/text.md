@@ -80,8 +80,6 @@ spec:
           app: frontend
   egress:
   - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
     - namespaceSelector: {}
       podSelector:
         matchLabels:
