@@ -128,9 +128,6 @@ spec:
     ports:
       - port: 53
         protocol: UDP
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
 EOF
 ```{{exec}}
 
