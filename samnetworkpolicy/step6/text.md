@@ -2,9 +2,7 @@
 
 Create a `network policy` to regulate the inbound and outbound traffic so that, 
 * `frontend` outgoing traffic is blocked except to the backend
-* `backend` incoming traffic is only allowed if it is from frontend and its outgoing traffic is blocked except to the storage. 
-* `storage` incoming traffic is only allowed if it is from backend and its outgoing traffic is blocked. 
-* The access to internet is not allowed except from the `storage`
+* `backend` incoming traffic is only allowed if it is from frontend and its outgoing traffic is blocked. 
 * The outgoing traffic to the `kube dns` is always allowed
 
 There will be 3 different network policies in the `magellan` namespace. 
