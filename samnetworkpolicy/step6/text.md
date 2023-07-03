@@ -47,7 +47,11 @@ spec:
         matchLabels:
           app: backend
 EOF
-```{{exec}}
+
+```
+
+
+
 
 This will not work without enabling the backend for the ingress
 
@@ -88,53 +92,16 @@ spec:
     - port: 53
       protocol: UDP
 EOF
-```{{exec}}
-
-`storage`
-
 ```
-kubectl apply -n magellan -f - << EOF
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: st-netpol
-  namespace: magellan
-spec:
-  podSelector:
-    matchLabels:
-      app: storage
-  policyTypes:
-  - Egress
-  - Ingress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: backend
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: tester
-      podSelector:
-        matchLabels:
-          app: tester-st 
-  egress:
-  - to: 
-    - namespaceSelector: {}
-      podSelector:
-        matchLabels:
-          k8s-app: kube-dns
-    ports:
-      - port: 53
-        protocol: UDP
-EOF
-```{{exec}}
+
+
+
+
 
 Once it is applied in `magellan` namespace verify if it is created successfully
 
 `kubectl describe netpol -n magellan fe-netpol`{{exec}}
 
 `kubectl describe netpol -n magellan be-netpol`{{exec}}
-
-`kubectl describe netpol -n magellan st-netpol`{{exec}}
 
 

@@ -2,16 +2,18 @@
 
 Create a temporary pod to initiate the REST call from `frontend` service,
 
-```shell
+`
 wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
-```
+`{{exec}}
+
+
 Use the `nginx:alpine` image
 
-```
+`
 kubectl run client-mock --image=nginx:alpine --labels app=client-mock \
 -it  --rm  --force \
 --  wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
-```{{exec}}
+`{{exec}}
 
 This will give result,
 ```json
@@ -33,12 +35,15 @@ This will give result,
 ]
 ```
 
-Repeat the step for initiating the call from `backend` and `storage`
+Repeat the step for initiating the call from `backend` and 
 
-```
+`storage`
+
+
+`
 kubectl run client-mock --image=nginx:alpine --labels app=client-mock -it  --rm --force \
 --  wget -S -O- http://backend.magellan.svc.cluster.local:8081/propagate
-```{{exec}}
+`{{exec}}
 
 The result will be,
 
@@ -61,10 +66,10 @@ The result will be,
 ]
 ```
 
-```
+`
 kubectl run client-mock --image=nginx:alpine --labels app=client-mock -it --rm --force \
 -- wget -S -O- http://storage.magellan.svc.cluster.local:8082/propagate
-```{{exec}}
+`{{exec}}
 
 The result will be,
 
