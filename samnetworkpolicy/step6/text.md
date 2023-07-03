@@ -9,7 +9,7 @@ There will be 3 different network policies in the `magellan` namespace.
 
 `frontend`
 
-```
+```shell
 kubectl apply -n magellan -f - << EOF
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -46,7 +46,7 @@ spec:
           app: backend
 EOF
 
-```
+```{{exec}}
 
 
 
@@ -55,7 +55,7 @@ This will not work without enabling the backend for the ingress
 
 `backend`
 
-```
+```shell
 kubectl apply -n magellan -f - << EOF
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -90,7 +90,7 @@ spec:
     - port: 53
       protocol: UDP
 EOF
-```
+```{{exec}}
 
 
 
