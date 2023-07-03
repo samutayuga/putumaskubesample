@@ -9,11 +9,11 @@ wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
 
 Use the `nginx:alpine` image
 
-`
+```shell
 kubectl run client-mock --image=nginx:alpine --labels app=client-mock \
 -it  --rm  --force \
 --  wget -S -O- http://frontend.magellan.svc.cluster.local:8080/propagate
-`{{exec}}
+```{{exec}}
 
 This will give result,
 ```json
@@ -40,10 +40,10 @@ Repeat the step for initiating the call from `backend` and
 `storage`
 
 
-`
+```shell
 kubectl run client-mock --image=nginx:alpine --labels app=client-mock -it  --rm --force \
 --  wget -S -O- http://backend.magellan.svc.cluster.local:8081/propagate
-`{{exec}}
+```{{exec}}
 
 The result will be,
 
