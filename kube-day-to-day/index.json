@@ -73,7 +73,12 @@
         "title": "Storage Class",
         "text": "step13/text.md",
         "verity": "step13/verify.sh"
-        }
+        },
+        {
+          "title": "Secret",
+          "text": "step14/text.md",
+          "verity": "step14/verify.sh"
+          }
       ],
       "finish": {
         "text": "finish.md"
