@@ -109,7 +109,12 @@
                     "title": "Network Policy",
                     "text": "step20/text.md",
                     "verity": "step20/verify.sh"
-                    }
+                    },
+                    {
+                      "title": "Resources",
+                      "text": "step21/text.md",
+                      "verity": "step21/verify.sh"
+                      }
       ],
       "finish": {
         "text": "finish.md"
