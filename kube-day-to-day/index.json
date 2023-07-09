@@ -99,7 +99,12 @@
                 "title": "Miss Configuration",
                 "text": "step18/text.md",
                 "verity": "step18/verify.sh"
-                }
+                },
+                {
+                  "title": "Node Port",
+                  "text": "step19/text.md",
+                  "verity": "step19/verify.sh"
+                  }
       ],
       "finish": {
         "text": "finish.md"
