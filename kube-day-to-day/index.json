@@ -48,8 +48,8 @@
         "title": "Deployment: Rollback",
         "text": "step8/text.md",
         "verity": "step8/verify.sh"
-     },
-     {
+      },
+      {
        "title": "Deployment: Convert pod to deployment",
        "text": "step9/text.md",
        "verity": "step9/verify.sh"
@@ -68,7 +68,12 @@
       "title": "Persistence Volume",
       "text": "step12/text.md",
       "verity": "step12/verify.sh"
-      }
+      },
+      {
+        "title": "Storage Class",
+        "text": "step13/text.md",
+        "verity": "step13/verify.sh"
+        }
       ],
       "finish": {
         "text": "finish.md"
