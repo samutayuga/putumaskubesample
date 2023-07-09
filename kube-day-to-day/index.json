@@ -83,7 +83,12 @@
             "title": "Pod misconfiguration",
             "text": "step15/text.md",
             "verity": "step15/verify.sh"
-            }
+            },
+            {
+              "title": "Side Car Container",
+              "text": "step16/text.md",
+              "verity": "step16/verify.sh"
+              }
       ],
       "finish": {
         "text": "finish.md"
