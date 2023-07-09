@@ -104,7 +104,12 @@
                   "title": "Node Port",
                   "text": "step19/text.md",
                   "verity": "step19/verify.sh"
-                  }
+                  },
+                  {
+                    "title": "Network Policy",
+                    "text": "step20/text.md",
+                    "verity": "step20/verify.sh"
+                    }
       ],
       "finish": {
         "text": "finish.md"
