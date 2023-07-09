@@ -94,6 +94,12 @@
                 "text": "step17/text.md",
                 "verity": "step17/verify.sh"
                 }
+                ,
+              {
+                "title": "Miss Configuration",
+                "text": "step18/text.md",
+                "verity": "step18/verify.sh"
+                }
       ],
       "finish": {
         "text": "finish.md"
