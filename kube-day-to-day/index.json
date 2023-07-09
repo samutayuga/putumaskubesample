@@ -1,0 +1,66 @@
+
+ 
+
+{
+    "title": "Kubernetes Troubleshooting",
+    "description": "Kubernetes day to day sample scenario",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Namespace List",
+          "text": "step1/text.md",
+          "verity": "step1/verify.sh"
+        },
+        {
+            "title": "Pod: Check the pod status",
+            "text": "step2/text.md",
+            "verity": "step2/verify.sh"
+         },
+         {
+             "title": "Job",
+             "text": "step3/text.md",
+             "verity": "step3/verify.sh"
+          },
+          {
+            "title": "Helm",
+            "text": "step4/text.md",
+            "verity": "step4/verify.sh"
+         },
+         {
+           "title": "Secrets and Service Account",
+           "text": "step5/text.md",
+           "verity": "step5/verify.sh"
+        },
+        {
+          "title": "Pod: Readiness Probe",
+          "text": "step6/text.md",
+          "verity": "step6/verify.sh"
+       },
+       {
+         "title": "Pod: Labels",
+         "text": "step7/text.md",
+         "verity": "step7/verify.sh"
+      },
+      {
+        "title": "Deployment: Rollback",
+        "text": "step8/text.md",
+        "verity": "step8/verify.sh"
+     },
+     {
+       "title": "Deployment: Convert pod to deployment",
+       "text": "step9/text.md",
+       "verity": "step8/verify.sh"
+    }
+        
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
