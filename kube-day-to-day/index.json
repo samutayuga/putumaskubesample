@@ -78,7 +78,12 @@
           "title": "Secret",
           "text": "step14/text.md",
           "verity": "step14/verify.sh"
-          }
+          },
+          {
+            "title": "Pod misconfiguration",
+            "text": "step15/text.md",
+            "verity": "step15/verify.sh"
+            }
       ],
       "finish": {
         "text": "finish.md"
