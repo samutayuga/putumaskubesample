@@ -53,7 +53,17 @@
        "title": "Deployment: Convert pod to deployment",
        "text": "step9/text.md",
        "verity": "step8/verify.sh"
-    }
+    },
+    {
+      "title": "Service",
+      "text": "step10/text.md",
+      "verity": "step8/verify.sh"
+   },
+   {
+     "title": "Docker",
+     "text": "step10/text.md",
+     "verity": "step8/verify.sh"
+  }
         
       ],
       "finish": {
