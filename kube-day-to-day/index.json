@@ -114,7 +114,12 @@
                       "title": "Resources",
                       "text": "step21/text.md",
                       "verity": "step21/verify.sh"
-                      }
+                      },
+                      {
+                        "title": "Labels",
+                        "text": "step22/text.md",
+                        "verity": "step22/verify.sh"
+                        }
       ],
       "finish": {
         "text": "finish.md"
