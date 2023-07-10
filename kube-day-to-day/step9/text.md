@@ -10,7 +10,7 @@ In Namespace pluto there is single Pod named holy-api.
 
 * Create a directory
 
-`mkdir -p /opt/course/9/holy-api-pod.yaml` {{exec}}
+`mkdir -p /opt/course/9/holy-api-pod.yaml`{{exec}}
 
 * Create a pod manifest
 
@@ -29,7 +29,8 @@ spec:
     name: holi-api-container
     resources: {}
 EOF
-```
+```{{exec}}
+
 * Apply pod manifest
 
 `kubectl apply -n pluto -f /opt/course/9/holy-api-pod.yaml`{{exec}}
