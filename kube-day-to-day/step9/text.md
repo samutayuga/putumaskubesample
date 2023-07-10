@@ -10,7 +10,7 @@ In Namespace pluto there is single Pod named holy-api.
 
 * Create a directory
 
-`mkdir -p /opt/course/9/holy-api-pod.yaml`{{exec}}
+`mkdir -p /opt/course/9`{{exec}}
 
 * Create a pod manifest
 
