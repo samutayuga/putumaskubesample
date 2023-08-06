@@ -2,11 +2,13 @@
 
 ## Prerequites
 
-`kubectl run shop-1 -n saturn --image=http:2.4 --labels app=my-shop,version=2.4`{{exec}}
+`kubectl create namespace saturn` {{exec}}
 
-`kubectl run shop-2 -n saturn --image=http:2.4 --labels app=my-shop1,version=2.4`{{exec}}
+`kubectl run shop-1 -n saturn --image=httpd:2.4 --labels app=my-shop,version=2.4`{{exec}}
 
-`kubectl annotate pods shop-1 component=my-happy-shop --overwrite`{{exec}}
+`kubectl run shop-2 -n saturn --image=httpd:2.4 --labels app=my-shop1,version=2.4`{{exec}}
+
+`kubectl annotate pods -n saturn shop-1 component=my-happy-shop --overwrite`{{exec}}
 
 ## Scenario
 
