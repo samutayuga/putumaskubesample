@@ -2,10 +2,9 @@
 
 ## Prequisites
 
-`
-mkdir -p /opt/course/17
-kubetl create namespace mars
-`{{exec}}
+`mkdir -p /opt/course/17`{{exec}}
+
+`kubetl create namespace mars`{{exec}}
 
 
 
