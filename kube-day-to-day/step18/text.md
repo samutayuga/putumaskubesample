@@ -14,7 +14,7 @@ Create a wrong nodeSelector on the service
 
 Expose the service
 
-`kubectl expose deployment manager-api-deployment --port=4000 --target-port=80 --name=manager-api-svc`{{exec}}
+`kubectl expose deployment manager-api-deployment --port=4000 --target-port=80 --name=manager-api-svc --labels app=manager-api-deployment`{{exec}}
 
 ## Run scenario
 
