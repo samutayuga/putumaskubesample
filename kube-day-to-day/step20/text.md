@@ -6,11 +6,11 @@
 
 `kubectl config set-context --current --namespace venus`{{exec}}
 
-`kubectl create deployment api --image=busybox:1.31.1`{{exec}}
+`kubectl create deployment api --image=nginx:1.17.3-alpine`{{exec}}
 
 `kubectl expose deployment api --name=api --labels id=api --port=2222 --target-port=80`{{exec}}
 
-`kubectl create deployment frontend --image=busybox:1.31.1`{{exec}}
+`kubectl create deployment frontend --image=busybox:1.17.3-alpine`{{exec}}
 
 `kubectl expose deployment frontend --name=frontend --labels id=frontend --port=80 --target-port=80`{{exec}}
 
@@ -20,4 +20,4 @@ In namespace `venus` you'll find two Deployments named `api` and `frontend`.
 Both deployments are exposed inside the cluster using Services. Create a NetworkPolicy named `np1` which restricts outgoing tcp connections from Deployment `frontend` and only allows those going to Deployment `api`. 
 Make sure the NetworkPolicy still allows outgoing traffic on UDP/TCP ports 53 for DNS resolution.
 
-Test using: wget www.google.com and wget api:2222 from a Pod of Deployment frontend.
+Test using: wget www.google.com and wget `api:2222` from a Pod of Deployment frontend.
