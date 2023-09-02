@@ -14,6 +14,10 @@ Expose the service
 
 `kubectl expose deployment manager-api-deployment --port=4000 --target-port=80 --name=manager-api-svc --labels app=manager-api-deployment`{{exec}}
 
+Recreate the deployment, 
+
+`kubectl create deployment manager-api --image=nginx:1.17.3-alpine`{{exec}}
+
 ## Run scenario
 
 There seems to be an issue in Namespace `mars` where the `ClusterIP` service `manager-api-svc` should make the Pods of Deployment `manager-api-deployment` available inside the cluster.
