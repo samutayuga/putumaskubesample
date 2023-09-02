@@ -6,11 +6,11 @@
 
 `kubectl config set-context --current --namespace venus`{{exec}}
 
-`kubectl create deployment api --image=busybox:alpine`{{exec}}
+`kubectl create deployment api --image=busybox:1.31.1`{{exec}}
 
 `kubectl expose deployment api --name=api --labels id=api --port=2222 --target-port=80`{{exec}}
 
-`kubectl create deployment frontend --image=busybox:alpine`{{exec}}
+`kubectl create deployment frontend --image=busybox:1.31.1`{{exec}}
 
 `kubectl expose deployment frontend --name=frontend --labels id=frontend --port=80 --target-port=80`{{exec}}
 
