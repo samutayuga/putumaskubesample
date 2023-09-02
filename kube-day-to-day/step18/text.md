@@ -4,9 +4,7 @@
 
 `kubectl create namespace mars`{{exec}}
 
-`kubectl create namespace mars`{{exec}}
-
-`kubectl config set-context --current --namesapce mars`{{exec}}
+`kubectl config set-context --current --namespace mars`{{exec}}
 
 Create a wrong nodeSelector on the service
 
