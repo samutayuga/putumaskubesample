@@ -6,11 +6,11 @@
 
 `kubectl config set-context --current --namespace venus`{{exec}}
 
-`kubectl create deployment api --image=nginx:1.17.3 --labels id=api`{{exec}}
+`kubectl create deployment api --image=nginx:1.17.3`{{exec}}
 
 `kubectl expose deployment api --name=api --labels id=api`{{exec}}
 
-`kubectl create deployment frontend --image=nginx:1.17.3 --labels id=frontend`{{exec}}
+`kubectl create deployment frontend --image=nginx:1.17.3`{{exec}}
 
 `kubectl expose deployment frontend --name=frontend --labels id=frontend`{{exec}}
 
