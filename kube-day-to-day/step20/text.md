@@ -10,7 +10,7 @@
 
 `kubectl expose deployment api --name=api --labels id=api --port=2222 --target-port=80`{{exec}}
 
-`kubectl create deployment frontend --image=busybox:1.17.3-alpine`{{exec}}
+`kubectl create deployment frontend --image=nginx:1.17.3-alpine`{{exec}}
 
 `kubectl expose deployment frontend --name=frontend --labels id=frontend --port=80 --target-port=80`{{exec}}
 
