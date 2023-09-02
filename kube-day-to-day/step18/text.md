@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-`create namespace mars`
+`kubectl create namespace mars`{{exec}}
 
 `kubectl create namespace mars`{{exec}}
 
