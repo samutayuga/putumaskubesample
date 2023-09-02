@@ -8,11 +8,11 @@
 
 `kubectl create deployment api --image=nginx:1.17.3`{{exec}}
 
-`kubectl expose deployment api --name=api --labels id=api`{{exec}}
+`kubectl expose deployment api --name=api --labels id=api --port=2222 --target-port=80`{{exec}}
 
 `kubectl create deployment frontend --image=nginx:1.17.3`{{exec}}
 
-`kubectl expose deployment frontend --name=frontend --labels id=frontend`{{exec}}
+`kubectl expose deployment frontend --name=frontend --labels id=frontend --port=80 --target-port=80`{{exec}}
 
 ## Run scenario
 
