@@ -4,7 +4,7 @@
 
 `kubectl create namespace sun`{{exec}}
 
-`kubectl config get-context --current --namespace sun `{{exec}}
+`kubectl config set-context --current --namespace sun `{{exec}}
 
 `kubectl run 0509649a --image=nginx:1.17.3-alpine --labels type=runner,type_old=messenger`{{exec}}
 
