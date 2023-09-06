@@ -119,7 +119,12 @@
                         "title": "Labels",
                         "text": "step22/text.md",
                         "verity": "step22/verify.sh"
-                        }
+                        },
+                        {
+                          "title": "Labels",
+                          "text": "step23/text.md",
+                          "verity": "step23/verify.sh"
+                          }
       ],
       "finish": {
         "text": "finish.md"
