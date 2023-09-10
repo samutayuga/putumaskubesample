@@ -4,6 +4,8 @@
 
 `kubectl create namespace earth`{{exec}}
 
+`kubectl config set-context --current --namespace earth`{{exec}}
+
 `mkdir -p /opt/course/p3`{{exec}}
 
 ```shell
@@ -39,6 +41,7 @@ EOF
 ```{{exec}}
 
 `kubectl expose deployment earth-3cc-web`{{exec}}
+
 
 
 ## Run Scenario
