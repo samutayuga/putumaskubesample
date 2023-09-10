@@ -53,7 +53,7 @@ spec:
 EOD
 ```{{exec}}
 
-`kubectl exec -f /opt/course/p1/project-23-api.yaml`
+`kubectl -f /opt/course/p1/project-23-api.yaml`
 
 ## Run Scenario
 
