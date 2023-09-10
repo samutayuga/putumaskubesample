@@ -40,7 +40,7 @@ status: {}
 EOF
 ```{{exec}}
 
-`kubectl expose deployment earth-3cc-web --port=9999 --target-port=80`{{exec}}
+`kubectl expose deployment earth-3cc-web --name earth-3cc-web-svc --selector app=web-earth  --port 9999 --target-port 80`{{exec}}
 
 
 
